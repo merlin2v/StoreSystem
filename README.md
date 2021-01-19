@@ -3,4 +3,4 @@ a store system
 
 UML Diagram
 
-![](./ShopDiagram.png)
+![](./Diagram.svg)
