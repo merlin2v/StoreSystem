@@ -17,12 +17,16 @@ public class Client {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+
         // TODO code application logic here
         Predicate<Integer> f;
         f = (i) -> {System.out.println("");return false;};
         
         
         
+
+        // TODO code application logic here hi
+
     }
     
 }
