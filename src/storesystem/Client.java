@@ -5,7 +5,7 @@
  */
 package storesystem;
 
-import java.util.function.Predicate;
+import storesystem.api.*;
 
 /**
  *
@@ -13,15 +13,14 @@ import java.util.function.Predicate;
  */
 public class Client {
 
-    /**
+    /** 
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-
+        if (args.length!= 0 && args[0]=="server") {
+            // run server stuff
+        }
         // TODO code application logic here
-        Predicate<Integer> f;
-        f = (i) -> {System.out.println("");return false;};
-        
         
         
 
