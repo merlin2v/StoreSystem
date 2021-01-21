@@ -9,6 +9,9 @@ package storesystem.api;
  */
 public class ItemOrder {
 
+    public Item Item;
+    public int Quantity;
+
 
 
     

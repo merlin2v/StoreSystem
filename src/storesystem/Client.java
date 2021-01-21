@@ -16,7 +16,7 @@ public class Client {
      */
     public static void main(String[] args) {
         if (args.length!= 0 && args[0]=="server") {
-            // run server stuff
+            // TODO run server stuff
         }
         // TODO code application logic here
 
