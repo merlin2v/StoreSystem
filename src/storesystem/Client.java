@@ -22,7 +22,6 @@ public class Client {
         }
         // TODO code application logic here
         
-        
 
         // TODO code application logic here hi
 
