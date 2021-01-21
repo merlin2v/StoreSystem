@@ -19,7 +19,7 @@ public class Client {
             // run server stuff
         }
         // TODO code application logic here
-        
+
 
     }
     
