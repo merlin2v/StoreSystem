@@ -3,6 +3,7 @@
  */
 package storesystem.api.deals;
 
+import java.util.Collection;
 import java.util.function.BiPredicate;
 import storesystem.api.*;
 
@@ -18,7 +19,7 @@ public class Deal<T> {
      *  {@code Predicate<Item[]> predictate = (items, isPeek) -> {return items.length < 2;};}  
      * {@code isPeek} is whether it is a peek method or a real method.   
      */
-    public BiPredicate<ItemOrder[], Boolean> Test;
+    public BiPredicate<ShoppingCart, Boolean> Test;
     /**
      * The object that is received.
      */
@@ -37,8 +38,8 @@ public class Deal<T> {
      * @param items The Items that are to be evaluated
      * @return whether or not do Receive the {@link Receivable}  
      */
-    public boolean peekPredictate(ItemOrder[] items){
-        return Test.test(items, true);
+    public boolean peekPredictate(ShoppingCart cart){
+        return Test.test(cart, true);
     }
     /**
      * run the test 
@@ -50,14 +51,28 @@ public class Deal<T> {
     }*/
     /**
      * try to get the {@link Receivable} if evaluated. 
-     * @param items The Items that are to be evaluated
+     * @param cart The Items that are to be evaluated
      * @return get the {@link Receivable} or null if false
      */
-    public T tryReceive(ItemOrder[] items){
+    public T tryReceive(ShoppingCart cart){
         T ret = null;
-        if ( Max==-1 || TimesApplied < Max) {
-            ret = Test.test(items, false)?Receivable:null;
+        if ( Max==-1 || TimesApplied <= Max) {
+            ret = Test.test(cart, false)?Receivable:null;
             TimesApplied++;
+        }
+        return ret;
+    }
+    /**
+     * try to get the {@link Receivable} if evaluated. Does not add to 
+     * {@link TimesApplied}.
+     * @param cart The Items that are to be evaluated
+     * @return get the {@link Receivable} or null if false
+     */
+    protected T silentReceive(ShoppingCart cart){
+        T ret = null;
+        if ( Max==-1 || TimesApplied <= Max) {
+            ret = Test.test(cart, false)?Receivable:null;
+            //TimesApplied++; 
         }
         return ret;
     }
