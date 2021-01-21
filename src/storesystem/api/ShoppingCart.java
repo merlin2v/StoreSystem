@@ -21,19 +21,19 @@ public class ShoppingCart {
         throw new UnsupportedOperationException("Not supported yet."); //TODO implement
     }
 
-    public void removeItem(Item i) {
+    public boolean removeItem(Item i) {
         throw new UnsupportedOperationException("Not supported yet."); //TODO implement
     }
 
-    public void removeItems(ItemOrder io) {
+    public boolean removeItems(ItemOrder io) {
         throw new UnsupportedOperationException("Not supported yet."); //TODO implement
     }
 
-    public void removeItems(Item i, int i0) {
+    public boolean removeItems(Item i, int i0) {
         throw new UnsupportedOperationException("Not supported yet."); //TODO implement
     }
 
-    public void alculateTotal() {
+    public int calculateTotal() {
         throw new UnsupportedOperationException("Not supported yet."); //TODO implement
     }
 
@@ -41,15 +41,19 @@ public class ShoppingCart {
         throw new UnsupportedOperationException("Not supported yet."); //TODO implement
     }
 
-    public void IsCompleted() {
+    public int isCompleted() {
         throw new UnsupportedOperationException("Not supported yet."); //TODO implement
     }
 
-    public void calculateFinalTotal() {
+    public int calculateFinalTotal() {
         throw new UnsupportedOperationException("Not supported yet."); //TODO implement
     }
 
     public void calculateTax() {
+        throw new UnsupportedOperationException("Not supported yet."); //TODO implement
+    }
+    
+    public boolean hasItem(Item i) {
         throw new UnsupportedOperationException("Not supported yet."); //TODO implement
     }
     
