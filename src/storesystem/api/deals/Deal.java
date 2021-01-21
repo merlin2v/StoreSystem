@@ -7,8 +7,10 @@ import java.util.function.BiPredicate;
 import storesystem.api.*;
 
 /**
- *
- * @author natha
+ * The Deal class is the class that is capable of testing objects and returning 
+ * if that deal can be applied or not. 
+ * This is a base implementation but it still can be created.
+ * @author Nathan
  */
 public class Deal<T> {
     /** the check to see if the deal is valid and can be applied.
