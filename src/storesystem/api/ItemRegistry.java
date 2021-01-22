@@ -13,6 +13,7 @@ import java.io.Serializable;
  */
 public class ItemRegistry implements Serializable{
     @Serial
+    
     public int value;
     
     private void writeObject(java.io.ObjectOutputStream out)
@@ -27,4 +28,37 @@ public class ItemRegistry implements Serializable{
      throws ObjectStreamException{
     
 }
+ 
+ //Jenny's code
+ public void registerItem(String name) 
+	 throws ItemRegisteredException {
+ }
+ 
+ public void registerItem(String name, double price) 
+	 throws ItemRegisteredException {
+ }
+ 
+ public void deleteItem(String name) {
+	 
+ }
+ 
+ public void getItem(String name) {
+	 
+ }
+ 
+ public void setPrice(String name, double price) {
+	 
+ }
+ 
+ public void havePrice() {
+	 
+ }
+ 
+ public void addDeal() {
+	 
+ }
+ 
+ public void removeDeal() {
+	 
+ }
 }
