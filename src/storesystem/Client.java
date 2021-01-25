@@ -3,7 +3,13 @@
  */
 package storesystem;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import storesystem.api.*;
 
 /**
@@ -21,8 +27,10 @@ public class Client {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
+        initialize(); //initialize the variables 
         if (args.length!= 0 && args[0].equals("server")) {
-            // TODO run server stuff
+            // run server stuff
             serverConsole();
         }
         // TODO code application logic here
@@ -30,7 +38,42 @@ public class Client {
 
     }
     
-
+    /**
+     * help used from:
+     * https://www.tutorialspoint.com/java/java_serialization.htm
+     * 
+     */
+    public static void initialize(){
+        File regf = new File("/data/registry.ser");
+        if (regf.exists()) {
+            try {
+                Registry=ItemRegistry.loadRegistry(regf);
+            } catch (IOException ex) {
+                Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("attempting to get default reg path");
+                Registry=ItemRegistry.getDefaultRegistry();
+            }
+        }else{
+            Registry=ItemRegistry.getDefaultRegistry();
+        }
+        
+        File invf = new File("/data/inventory.ser");
+        
+        if (invf.exists()) {
+            try {
+                StoreInventory = Inventory.loadInventory(invf);
+            } catch (IOException ex) {
+                Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("malformatted Inventory object");
+                System.out.println("creating new object");
+                StoreInventory = new Inventory();
+            }
+        }else{
+            System.out.println("Inventory not found ");
+            StoreInventory = new Inventory();
+        }
+        
+    }
     
     public static void serverConsole(){
         Scanner scn = new Scanner(System.in);
