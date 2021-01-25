@@ -5,7 +5,7 @@ package storesystem.api;
 
 /**
  *
- * @author natha
+ * @author Dani
  */
 public class ItemOrder {
 	//private fields
