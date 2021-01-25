@@ -3,6 +3,7 @@
  */
 package storesystem.api;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.ObjectStreamException;
 import java.io.Serial;
@@ -22,6 +23,7 @@ public class ItemRegistry implements Serializable{
     //Private fields
     private TreeMap<String, Item> registeredItems; //TreeMap that holds registered items
     private Set<Deal> deals; //HashSet that holds deals
+    private String DEFAULT_REGISTRY_PATH;
     
     public int value;
     
@@ -44,9 +46,13 @@ public class ItemRegistry implements Serializable{
 	 deals = new HashSet<>();
  }
  
- //public ItemRegistry getDefaultItemRegistry() {
+ public ItemRegistry getDefaultItemRegistry() {
+	 loadRegistry(new File(DEFAULT_REGISTRY_PATH));
+ }
+ 
+ public ItemRegistry loadRegistry(File registry) {
 	 
- //}
+ }
  
  public void registerItem(String name)  { //Registers item into registry with only the name (no price listed)
 	 if (registeredItems.containsKey(name)) {
