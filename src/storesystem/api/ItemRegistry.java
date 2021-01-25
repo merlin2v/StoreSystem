@@ -7,7 +7,11 @@ import java.io.IOException;
 import java.io.ObjectStreamException;
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.TreeMap;
+
+import storesystem.api.deals.Deal;
 /**
  *
  * @author natha
@@ -16,7 +20,8 @@ public class ItemRegistry implements Serializable{
     @Serial
     
     //Private fields
-    private TreeMap<String, Item> registry = new TreeMap<>();
+    private TreeMap<String, Item> registry = new TreeMap<>(); //TreeMap that holds registered items
+    private Set<Deal> deals = new HashSet<>(); //HashSet that holds deals
     
     public int value;
     
@@ -82,11 +87,19 @@ public class ItemRegistry implements Serializable{
 	 }
  }
  
- public void addDeal() {
-	 
+ public void addDeal(Deal d) { //Records Specified deal
+	 if (deals.contains(d)) {
+		 throw new ItemRegisteredException(); //Throws ItemRegisteredException if the deal is already registered
+	 } else {
+		 deals.add(d);
+	 }
  }
  
- public void removeDeal() {
-	 
+ public void removeDeal(Deal d) { //Removes a deal from the deals HashSet
+	 if (!deals.contains(d)) {
+		 throw new ItemNotFoundException(); //Throws ItemNotFoundException if the deal does not exist in the deals HashSet
+	 } else {
+		 deals.remove(d);
+	 }
  }
 }
