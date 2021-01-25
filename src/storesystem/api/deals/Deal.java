@@ -3,6 +3,7 @@
  */
 package storesystem.api.deals;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.function.BiPredicate;
 import storesystem.api.*;
@@ -13,7 +14,7 @@ import storesystem.api.*;
  * This is a base implementation but it still can be created.
  * @author Nathan
  */
-public class Deal<T> {
+public class Deal<T> implements Serializable{
     /** the check to see if the deal is valid and can be applied.
      * to use:  
      *  {@code Predicate<Item[]> predictate = (items, isPeek) -> {return items.length < 2;};}  
