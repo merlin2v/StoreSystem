@@ -44,7 +44,6 @@ public class Client {
             try {
                 Registry=ItemRegistry.loadRegistry(regf);
             } catch (IOException ex) {
-                Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
                 System.out.println("attempting to get default reg path");
                 Registry=ItemRegistry.getDefaultRegistry();
             }
@@ -58,7 +57,6 @@ public class Client {
             try {
                 StoreInventory = Inventory.loadInventory(invf);
             } catch (IOException ex) {
-                Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
                 System.out.println("malformatted Inventory object");
                 System.out.println("creating new object");
                 StoreInventory = new Inventory();
