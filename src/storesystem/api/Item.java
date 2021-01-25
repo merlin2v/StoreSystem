@@ -5,7 +5,7 @@ package storesystem.api;
 
 /** here is item info that you need to know
  *
- * @author natha
+ * @author Dani
  */
 public class Item {
 	//private fields
