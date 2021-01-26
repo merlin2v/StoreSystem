@@ -4,14 +4,16 @@
 package storesystem.api;
 
 import java.io.*;
+import java.util.*;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeMap;
 
-import storesystem.api.deals.Deal;
+import storesystem.api.deals.*;
 /**
- *
- * @author natha
+ * Controls the valid {@link Item}s as well as creates and stores them.  
+ * Also in charge of Deal Objects.
+ * @author Jenny
  */
 public class ItemRegistry implements Serializable{
     @Serial
@@ -186,4 +188,22 @@ public class ItemRegistry implements Serializable{
 		 deals.remove(d);
 	 }
  }
+ /**
+  * Runs through all of the deals and checks for valid deals
+  * @param cart - the cart object to check for deals
+  * @return 
+  */
+    public CartDeals runThroughDeals(ShoppingCart cart){
+        CartDeals oDeal = new CartDeals();
+        Iterator<Deal> iterator = deals.iterator();
+        while (iterator.hasNext()) {
+            Deal next = iterator.next();
+            DealObject tryReceive;
+            while((tryReceive = next.tryReceive(cart))!=null){
+                oDeal.add(tryReceive);
+            }
+        }
+        return oDeal;
+    }
+   
 }
