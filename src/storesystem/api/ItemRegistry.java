@@ -23,7 +23,7 @@ public class ItemRegistry implements Serializable{
     //Private fields
     private TreeMap<String, Item> registeredItems; //TreeMap that holds registered items
     private Set<Deal> deals; //HashSet that holds deals
-    private String DEFAULT_REGISTRY_PATH;
+    private static String DEFAULT_REGISTRY_PATH;
     
     public int value;
     
@@ -46,12 +46,16 @@ public class ItemRegistry implements Serializable{
 	 deals = new HashSet<>();
  }
  
- public ItemRegistry getDefaultItemRegistry() {
+ public static ItemRegistry getDefaultItemRegistry() {
 	 loadRegistry(new File(DEFAULT_REGISTRY_PATH));
  }
  
- public ItemRegistry loadRegistry(File registry) {
+ public static ItemRegistry loadRegistry(File registry) {
 	 
+ }
+ 
+ public boolean isItemRegistered(String name) { //Returns a boolean depending on if the specified item is registered or not
+	 return registeredItems.containsKey(name);
  }
  
  public void registerItem(String name)  { //Registers item into registry with only the name (no price listed)
