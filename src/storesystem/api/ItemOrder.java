@@ -9,8 +9,8 @@ package storesystem.api;
  */
 public class ItemOrder {
 	//private fields
-    private String item;
-    private int quantity;
+    public String item;
+    public int quantity;
     private double pricePerUnit;
     
     //constructors
