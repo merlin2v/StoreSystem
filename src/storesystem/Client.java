@@ -31,23 +31,63 @@ public class Client {
             serverConsole();
         }
         // TODO code application logic here
+        Set<String> listOfItems = Registry.getListOfItems();
+        int page = 11;
+        String[] arr = new String[listOfItems.size()];
+        arr = listOfItems.toArray(arr);
+        if (page<=10){
+            createList(arr,page);
+        }else{
+            //do nothing
+        }
+        
+        
+        
+        
 
-
+    }
+    /**
+     * prints out the list
+     * @param arr the array of items available
+     * @param page the page number to print
+     */
+    public static void createList(String[] arr, int page){
+        
+        int itemStart = page * 9;
+        if (/* code to test max pages*/page>10 ) {
+            throw new IllegalArgumentException("page must be ");
+        }
+        for (int i = itemStart; i < 9 + itemStart; i++) {
+            if (i<arr.length) {
+                String name = arr[i];
+                Item item = Registry.getItem(name);
+                double cost = item.getPrice();
+                if (item instanceof ItemPack) {
+                    int cnt = ((ItemPack) item).PackCount;
+                    System.out.printf("%1$s.  %2$s \t %4$spk $%3$.2f\n",(i+1),name,cost,cnt);
+                    break;
+                }
+                System.out.printf("%1$s.  %2$s \t $%3$.2f\n",(i+1),name,cost);
+            }else{
+                System.out.println("");
+            }
+            
+        }
     }
     
     /**
      * Saves the objects
      */
     public static void save(){
-        File dir = new File("data/registry.obj");
+        File dir = new File("data/");
         dir.mkdir();
+        File reg = new File("data/registry.obj");
         try {
-            Registry.save(dir);
+            Registry.save(reg);
         } catch (IOException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
         File dir2 = new File("data/inventory.obj");
-        dir2.mkdir();
         try {
             StoreInventory.save(dir2);
         } catch (IOException ex) {
@@ -116,8 +156,10 @@ public class Client {
                                     + "\t Ex: inv sub tissue 15\n"
                                     + "\t\t will remove 15 tissues from inventory\n"
                                     + "save - saves items\n"
-                                    + "init - reinitializes variables"
-                                    + "item - test for an item"
+                                    + "init - reinitializes variables\n"
+                                    + "item - test for an item\n"
+                                    + "wrap - registers an item with extra data\n"
+                                    + "\t Ex: wrap cola pack 4\n"
                     );
                 }
                 case "register" -> {//register tissue 5.0
@@ -128,6 +170,7 @@ public class Client {
                     }else{
                         Registry.registerItem(name);
                     }
+                    System.out.println("item '"+name+"' has been registered");
                 }
                 case "inv" -> {//inv add tissue 2
                     String subcmd = lnscn.next();
@@ -140,16 +183,27 @@ public class Client {
                         if (lnscn.hasNextInt()) {
                             int q = lnscn.nextInt();
                             StoreInventory.addItem(i, q);
+                            System.out.println("item '"+name+"' added '"+q+"' to Inventory");
                         }else{
                             StoreInventory.addItem(i);
+                            System.out.println("item '"+name+"' added '1' to Inventory");
                         }
                     }else if(subcmd.equals("sub")){
                         if (lnscn.hasNextInt()) {
                             int q = lnscn.nextInt();
                             StoreInventory.removeItem(i, q);
+                            System.out.println("item '"+name+"' removed '"+q+"' from Inventory");
                         }else{
                             StoreInventory.removeItem(i);
+                            System.out.println("item '"+name+"' removed '1' from Inventory");
                         }
+                    }else if(subcmd.equals("get")){
+                        ItemOrder io = StoreInventory.getItemOrder(i);
+                        System.out.println("Current inventory: \n\t'"+name+"' quantity:"+ io.Quantity );
+                        break;
+                    }else{
+                        System.err.println("Invalid sub-command. Try 'add', 'sub' or 'get'");
+                        break;
                     }
                     ItemOrder io = StoreInventory.getItemOrder(i);
                     System.out.println("Current inventory updated: \n\t'"+name+"' quantity:"+ io.Quantity );
@@ -160,9 +214,41 @@ public class Client {
                 }
                 case "save" -> {
                     save();
+                    System.out.println("saved");
                 }
                 case "load" -> {
                     initialize();
+                    System.out.println("re-loaded");
+                }
+                case "wrap" -> {
+                    String name = lnscn.next();
+                    String type = lnscn.next();
+                    if (Registry.isItemRegistered(name)) {
+                        System.err.println("item '"+name+"' is already registered");
+                        break;
+                    }
+                    WrappedItem witem = null;
+                    switch(type){
+                        case "wrap" -> {
+                            ItemPack p = new ItemPack();
+                            p.PackCount = lnscn.nextInt();
+                            witem = p;
+                        }
+                        default-> {
+                            System.err.println("type '"+type+"' is not a valid type");
+                            break;
+                        }
+                    }
+                    if (witem==null) {
+                        break;
+                    }
+                    Registry.registerWrappedItem(name,witem);
+                    System.out.println("registered '"+name+"' of type '"+type+"'");
+                    
+                }
+                default -> {
+                    System.err.println("Sorry, command '"+command+"' is not a valid command\n"
+                    + "\t type 'help' for a list of commands");
                 }
             }
         }
