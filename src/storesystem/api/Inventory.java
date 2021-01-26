@@ -49,7 +49,7 @@ public class Inventory implements Serializable{
         out.close();
     }
     
-    public void addItems(Item i, int q) {
+    public void addItem(Item i, int q) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
