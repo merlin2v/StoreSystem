@@ -54,11 +54,18 @@ public class ItemRegistry implements Serializable{
 	 
  }
  
- public boolean isItemRegistered(String name) { //Returns a boolean depending on if the specified item is registered or not
+ /**Returns a boolean depending on if the specified item is registered or not.
+  * @param name String
+  * @return boolean
+  */
+ public boolean isItemRegistered(String name) {
 	 return registeredItems.containsKey(name);
  }
  
- public void registerItem(String name)  { //Registers item into registry with only the name (no price listed)
+ /**Registers item into registry with only the name (no price listed).
+  * @param name String
+  */
+ public void registerItem(String name)  { 
 	 if (registeredItems.containsKey(name)) {
 		 throw new ItemRegisteredException(); //Throws ItemRegisteredException if the registry already contains the item
 	 } else {
@@ -66,7 +73,11 @@ public class ItemRegistry implements Serializable{
 	 }
  }
  
- public void registerItem(String name, double price) { //Registers new item into registry with specified name and price
+ /**Registers new item into registry with specified name and price.
+  * @param name String
+  * @param price double
+  */
+ public void registerItem(String name, double price) { 
 	 if (registeredItems.containsKey(name)) {
 		 throw new ItemRegisteredException(); //Throws ItemRegisteredException if the registry already contains the item
 	 } else {
@@ -74,7 +85,10 @@ public class ItemRegistry implements Serializable{
 	 }
  }
  
- public void deleteItem(String name) { //Deletes the specified item from the registry
+ /**Deletes the specified item from the registry.
+  * @param name String
+  */
+ public void deleteItem(String name) { 
 	 if (!registeredItems.containsKey(name)) {
 		 throw new ItemNotFoundException(); //Throws ItemNotFoundException if specified item does not exist in registry
 	 } else {
@@ -82,15 +96,23 @@ public class ItemRegistry implements Serializable{
 	 }
  }
  
- public Item getItem(String name) { //Returns Item under specified Key (the name of the item)
+ /**Returns an Item under specified Key (the name of the item).
+  * @param name String
+  * @return Item
+  */
+ public Item getItem(String name) { 
 	 if (!registeredItems.containsKey(name)) {
-		 throw new ItemNotFoundException();
+		 throw new ItemNotFoundException(); //Throws ItemNotFoundException if specified item does not exist in registry
 	 } else {
 		 return registeredItems.get(name);
 	 }
  }
  
- public void setPrice(String name, double price) { //Changes specified item's price
+ /**Changes specified item's price.
+  * @param name String
+  * @param price double
+  */
+ public void setPrice(String name, double price) { 
 	 if (!registeredItems.containsKey(name)) {
 		 throw new ItemNotFoundException(); //Throws ItemNotFoundException if specified item does not exist in registry
 	 } else {
@@ -98,7 +120,11 @@ public class ItemRegistry implements Serializable{
 	 }
  }
  
- public double havePrice(String name) { //Returns price of specified item
+ /**Returns price of specified item.
+  * @param name String
+  * @return double (the price of the item)
+  */
+ public double havePrice(String name) { 
 	 if (!registeredItems.containsKey(name)) {
 		 throw new ItemNotFoundException(); //Throws ItemNotFoundException if specified item does not exist in registry
 	 } else {
@@ -106,7 +132,10 @@ public class ItemRegistry implements Serializable{
 	 }
  }
  
- public void addDeal(Deal d) { //Records Specified deal
+ /**Registers specified deal.
+  * @param d Deal
+  */
+ public void addDeal(Deal d) { 
 	 if (deals.contains(d)) {
 		 throw new ItemRegisteredException(); //Throws ItemRegisteredException if the deal is already registered
 	 } else {
@@ -114,7 +143,10 @@ public class ItemRegistry implements Serializable{
 	 }
  }
  
- public void removeDeal(Deal d) { //Removes a deal from the deals HashSet
+ /**Removes a deal from the deals HashSet.
+  * @param d Deal
+  */
+ public void removeDeal(Deal d) { 
 	 if (!deals.contains(d)) {
 		 throw new ItemNotFoundException(); //Throws ItemNotFoundException if the deal does not exist in the deals HashSet
 	 } else {
