@@ -3,11 +3,13 @@
  */
 package storesystem.api;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Dani
  */
-public class ItemOrder {
+public class ItemOrder implements Serializable{
 	//private fields
     private String item;
     public int Quantity;
