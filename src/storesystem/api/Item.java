@@ -3,11 +3,13 @@
  */
 package storesystem.api;
 
+import java.io.Serializable;
+
 /** here is item info that you need to know
  *
  * @author Dani
  */
-public class Item {
+public class Item implements Serializable{
 	//private fields
     private String name;
     private double price;
