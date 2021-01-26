@@ -10,11 +10,11 @@ import storesystem.api.*;
 
 /**
  * The Deal class is the class that is capable of testing objects and returning 
- * if that deal can be applied or not. 
- * This is a base implementation but it still can be created.
+ * if that deal can be applied or not.This is a base implementation but it still can be created.
  * @author Nathan
+ * @param <T> the type of Receivable
  */
-public class Deal<T> implements Serializable{
+public class Deal<T extends DealObject> implements Serializable, Cloneable{
     /** the check to see if the deal is valid and can be applied.
      * to use:  
      *  {@code Predicate<Item[]> predictate = (items, isPeek) -> {return items.length < 2;};}  

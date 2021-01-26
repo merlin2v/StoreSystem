@@ -59,7 +59,7 @@ public class PriceReductionOnMutiSameItemDeal extends PriceReductionDeal{
                         // we set TimesApplied here because we use the silent tryReceive
                         this.TimesApplied = order.Quantity % this.QuantityToRecieve;
                         if (this.Max!=-1 && this.TimesApplied > this.Max) this.TimesApplied = this.Max;
-                        this.Receivable = this.ReducedPrice * this.TimesApplied; 
+                        this.Receivable.Reduction = this.ReducedPrice * this.TimesApplied; 
                     }
                     return true;
                 }else return false;
@@ -70,9 +70,11 @@ public class PriceReductionOnMutiSameItemDeal extends PriceReductionDeal{
     }
 
     @Override
-    public Double tryReceive(ShoppingCart cart) {
-        return super.silentReceive(cart); //we want to silently receive this
+    public ReductionDealObject tryReceive(ShoppingCart cart) {
+        return super.silentReceive(cart); 
     }
+
+    
     
 
     
