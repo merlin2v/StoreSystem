@@ -11,7 +11,7 @@ import java.io.*;
  *
  * @author natha
  */
-// WOOOOOOOOOOOOOOOOOOOOO
+
 public class Inventory implements Serializable{
 
     /**
@@ -58,6 +58,7 @@ public class Inventory implements Serializable{
     }
 
     public boolean removeItem(Item i) {
+        int apple = 5;
         return removeItem(i,1);
     }
 
