@@ -11,6 +11,7 @@ import java.io.*;
  *
  * @author natha
  */
+// WOOOOOOOOOOOOOOOOOOOOO
 public class Inventory implements Serializable{
 
     /**
