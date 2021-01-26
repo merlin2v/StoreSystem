@@ -24,7 +24,7 @@ public class ItemRegistry implements Serializable{
     public int value;
     
 
- //Jenny's code
+
  protected ItemRegistry() {
 	 registeredItems = new TreeMap<>();
 	 deals = new HashSet<>();
@@ -78,6 +78,8 @@ public class ItemRegistry implements Serializable{
         out.close();
     }
     
+    //Jenny's code
+    
  /**Returns a boolean depending on if the specified item is registered or not.
   * @param name String
   * @return boolean
@@ -86,8 +88,15 @@ public class ItemRegistry implements Serializable{
 	 return registeredItems.containsKey(name);
  }
  
+ /**Returns a Set containing all of the item names in the registry.
+  * @return registeredItems.keySet(); Set<String>
+  */
+ public Set<String> getListOfItems() {
+	 return registeredItems.keySet();
+ }
  /**Registers item into registry with only the name (no price listed).
   * @param name String
+  * @throws ItemRegisteredException
   */
  public void registerItem(String name)  { 
 	 if (registeredItems.containsKey(name)) {
