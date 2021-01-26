@@ -34,6 +34,20 @@ public class Inventory {
         return r;
     }
 
+    /**
+     * this saves the {@link Inventory} as a {@link Serializable} object
+     * @param f the file to serialize to
+     * @throws java.io.FileNotFoundException
+     * @throws java.io.IOException
+     * @see Serializable
+     */
+    public void save(File f) throws FileNotFoundException, IOException{
+        FileOutputStream fout = new FileOutputStream(f);
+        ObjectOutputStream out = new ObjectOutputStream(fout);
+        out.writeObject(this);
+        out.close();
+    }
+    
     public void addItem(Item i, int q) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
