@@ -11,7 +11,7 @@ import java.io.*;
  *
  * @author natha
  */
-public class Inventory {
+public class Inventory implements Serializable{
 
     /**
      *  loads an Inventory object from a file
