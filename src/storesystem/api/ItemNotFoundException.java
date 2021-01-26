@@ -1,4 +1,4 @@
-package api;
+package storesystem.api;
 
 @SuppressWarnings("serial")
 public class ItemNotFoundException extends RuntimeException {
