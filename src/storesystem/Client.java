@@ -5,6 +5,8 @@ package storesystem;
 
 import java.io.*;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import storesystem.api.*;
 
 /**
@@ -34,12 +36,32 @@ public class Client {
     }
     
     /**
+     * Saves the objects
+     */
+    public static void save(){
+        File dir = new File("data/registry.obj");
+        dir.mkdir();
+        try {
+            Registry.save(dir);
+        } catch (IOException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        File dir2 = new File("data/inventory.obj");
+        dir2.mkdir();
+        try {
+            StoreInventory.save(dir2);
+        } catch (IOException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    /**initializes the 
      * help used from:
      * https://www.tutorialspoint.com/java/java_serialization.htm
      * 
      */
     public static void initialize(){
-        File regf = new File("/data/registry.ser");
+        File regf = new File("data/registry.obj");
         if (regf.exists()) {
             try {
                 Registry=ItemRegistry.loadRegistry(regf);
@@ -51,7 +73,7 @@ public class Client {
             Registry=ItemRegistry.getDefaultRegistry();
         }
         
-        File invf = new File("/data/inventory.ser");
+        File invf = new File("data/inventory.obj");
         
         if (invf.exists()) {
             try {
@@ -93,6 +115,9 @@ public class Client {
                                     + "\t\t will add 1 tissue to inventory\n"
                                     + "\t Ex: inv sub tissue 15\n"
                                     + "\t\t will remove 15 tissues from inventory\n"
+                                    + "save - saves items\n"
+                                    + "init - reinitializes variables"
+                                    + "item - test for an item"
                     );
                 }
                 case "register" -> {//register tissue 5.0
@@ -128,6 +153,16 @@ public class Client {
                     }
                     ItemOrder io = StoreInventory.getItemOrder(i);
                     System.out.println("Current inventory updated: \n\t'"+name+"' quantity:"+ io.Quantity );
+                }
+                case "item" -> {
+                    String name = lnscn.next();
+                    System.out.println("Item: "+Registry.isItemRegistered(name));
+                }
+                case "save" -> {
+                    save();
+                }
+                case "load" -> {
+                    initialize();
                 }
             }
         }
