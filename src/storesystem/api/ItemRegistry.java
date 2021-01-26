@@ -205,5 +205,21 @@ public class ItemRegistry implements Serializable{
         }
         return oDeal;
     }
+    /**
+     * Wrap Item in an extention object
+     * @param name creates the name for the object
+     * @param item the template item to store extra variables in
+     */
+    public void registerWrappedItem(String name, WrappedItem item){
+        if (isItemRegistered(name) || item.isRegistered()) {
+            throw new ItemRegisteredException();
+        }
+        item.name = name;
+        item.price = 0.0;
+        if (true) {
+            
+        }
+        registeredItems.put(name, item);
+    }
    
 }
