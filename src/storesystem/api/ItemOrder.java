@@ -3,35 +3,37 @@
  */
 package storesystem.api;
 
+import java.io.Serializable;
+
 /**
  *
- * @author natha
+ * @author Dani
  */
-public class ItemOrder {
+public class ItemOrder implements Serializable{
 	//private fields
-    public String item;
-    public int quantity;
+    private String item;
+    public int Quantity;
     private double pricePerUnit;
     
     //constructors
     public ItemOrder(String item, int quantity, double pricePerUnit) {
     	this.item = item;
-    	this.quantity = quantity;
+    	this.Quantity = quantity;
     	this.pricePerUnit = pricePerUnit;
     }
     
     //getters
     public double getCost() {
-    	return quantity * pricePerUnit;
+    	return Quantity * pricePerUnit;
     }
     
     //setters
     public void setQuantity() {
-    	this.quantity = quantity;
+    	this.Quantity = Quantity;
     }
     
     //toString method
     public String toString() {
-    	return quantity + "of" + item;
+    	return Quantity + "of" + item;
     }
 }

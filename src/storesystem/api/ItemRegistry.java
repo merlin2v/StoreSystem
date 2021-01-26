@@ -3,62 +3,207 @@
  */
 package storesystem.api;
 
-import java.io.IOException;
-import java.io.ObjectStreamException;
-import java.io.Serial;
-import java.io.Serializable;
+import java.io.*;
+import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.TreeMap;
+
+import storesystem.api.deals.*;
 /**
- *
- * @author natha
+ * Controls the valid {@link Item}s as well as creates and stores them.  
+ * Also in charge of Deal Objects.
+ * @author Jenny
  */
 public class ItemRegistry implements Serializable{
     @Serial
     
+    //Private fields
+    private TreeMap<String, Item> registeredItems; //TreeMap that holds registered items
+    private Set<Deal> deals; //HashSet that holds deals
+    private static String DEFAULT_REGISTRY_PATH = "data/registry.obj";
+    
     public int value;
     
-    private void writeObject(java.io.ObjectOutputStream out)
-     throws IOException{
-        
+
+
+ protected ItemRegistry() {
+	 registeredItems = new TreeMap<>();
+	 deals = new HashSet<>();
+ }
+ 
+    /**
+     * Loads a Registry from a given file object.
+     * @param file the file where the object was serialized 
+     * @return the item registry ItemRegistry
+     * @throws FileNotFoundException
+     * @throws IOException 
+     */
+    public static ItemRegistry loadRegistry(File file) throws FileNotFoundException, IOException {
+        FileInputStream fin = new FileInputStream(file);
+        ObjectInputStream in = new ObjectInputStream(fin);
+        ItemRegistry r;
+        try {
+            r = (ItemRegistry) in.readObject();
+        } catch (ClassNotFoundException ex) {
+            throw new Error(ex);// this should never happen
+        }
+        in.close();
+        fin.close();
+        return r;
     }
- private void readObject(java.io.ObjectInputStream in)
-     throws IOException, ClassNotFoundException{
+
+    /**
+     * gets the default registry 
+     * @return
+     */
+    public static ItemRegistry getDefaultRegistry(){
+        try {
+            return loadRegistry(new File(DEFAULT_REGISTRY_PATH));
+        } catch (IOException ex) {
+            System.err.println("No Registry was found, generating blank registry.");
+            return new ItemRegistry();
+        }
+    }
     
-}
- private void readObjectNoData()
-     throws ObjectStreamException{
+    /**
+     * this saves the {@link ItemRegistry} as a {@link Serializable} object
+     * @param f the file to serialize to
+     * @throws java.io.FileNotFoundException
+     * @throws java.io.IOException
+     * @see Serializable
+     */
+    public void save(File f) throws FileNotFoundException, IOException{
+        FileOutputStream fout = new FileOutputStream(f);
+        ObjectOutputStream out = new ObjectOutputStream(fout);
+        out.writeObject(this);
+        out.close();
+    }
     
-}
- 
- //Jenny's code
- public void registerItem(String name) 
-	 throws ItemRegisteredException {
+    //Jenny's code
+    
+ /**Returns a boolean depending on if the specified item is registered or not.
+  * @param name String
+  * @return boolean
+  */
+ public boolean isItemRegistered(String name) {
+	 return registeredItems.containsKey(name);
  }
  
- public void registerItem(String name, double price) 
-	 throws ItemRegisteredException {
+ /**Returns a Set containing all of the item names in the registry.
+  * @return registeredItems.keySet(); Set<String>
+  */
+ public Set<String> getListOfItems() {
+	 return registeredItems.keySet();
+ }
+ /**Registers item into registry with only the name (no price listed).
+  * @param name String
+  * @throws ItemRegisteredException
+  */
+ public void registerItem(String name)  { 
+	 if (registeredItems.containsKey(name)) {
+		 throw new ItemRegisteredException(); //Throws ItemRegisteredException if the registry already contains the item
+	 } else {
+	 registeredItems.put(name, new Item(name, 0.0));
+	 }
  }
  
- public void deleteItem(String name) {
-	 
+ /**Registers new item into registry with specified name and price.
+  * @param name String
+  * @param price double
+  */
+ public void registerItem(String name, double price) { 
+	 if (registeredItems.containsKey(name)) {
+		 throw new ItemRegisteredException(); //Throws ItemRegisteredException if the registry already contains the item
+	 } else {
+	 registeredItems.put(name, new Item(name, price));
+	 }
  }
  
- public void getItem(String name) {
-	 
+ /**Deletes the specified item from the registry.
+  * @param name String
+  */
+ public void deleteItem(String name) { 
+	 if (!registeredItems.containsKey(name)) {
+		 throw new ItemNotFoundException(); //Throws ItemNotFoundException if specified item does not exist in registry
+	 } else {
+		 registeredItems.remove(name);
+	 }
  }
  
- public void setPrice(String name, double price) {
-	 
+ /**Returns an Item under specified Key (the name of the item).
+  * @param name String
+  * @return Item
+  */
+ public Item getItem(String name) { 
+	 if (!registeredItems.containsKey(name)) {
+		 throw new ItemNotFoundException(); //Throws ItemNotFoundException if specified item does not exist in registry
+	 } else {
+		 return registeredItems.get(name);
+	 }
  }
  
- public void havePrice() {
-	 
+ /**Changes specified item's price.
+  * @param name String
+  * @param price double
+  */
+ public void setPrice(String name, double price) { 
+	 if (!registeredItems.containsKey(name)) {
+		 throw new ItemNotFoundException(); //Throws ItemNotFoundException if specified item does not exist in registry
+	 } else {
+		 registeredItems.replace(name, new Item(name, price));
+	 }
  }
  
- public void addDeal() {
-	 
+ /**Returns price of specified item.
+  * @param name String
+  * @return double (the price of the item)
+  */
+ public double havePrice(String name) { 
+	 if (!registeredItems.containsKey(name)) {
+		 throw new ItemNotFoundException(); //Throws ItemNotFoundException if specified item does not exist in registry
+	 } else {
+		 return registeredItems.get(name).getPrice();
+	 }
  }
  
- public void removeDeal() {
-	 
+ /**Registers specified deal.
+  * @param d Deal
+  */
+ public void addDeal(Deal d) { 
+	 if (deals.contains(d)) {
+		 throw new ItemRegisteredException(); //Throws ItemRegisteredException if the deal is already registered
+	 } else {
+		 deals.add(d);
+	 }
  }
+ 
+ /**Removes a deal from the deals HashSet.
+  * @param d Deal
+  */
+ public void removeDeal(Deal d) { 
+	 if (!deals.contains(d)) {
+		 throw new ItemNotFoundException(); //Throws ItemNotFoundException if the deal does not exist in the deals HashSet
+	 } else {
+		 deals.remove(d);
+	 }
+ }
+ /**
+  * Runs through all of the deals and checks for valid deals
+  * @param cart - the cart object to check for deals
+  * @return 
+  */
+    public CartDeals runThroughDeals(ShoppingCart cart){
+        CartDeals oDeal = new CartDeals();
+        Iterator<Deal> iterator = deals.iterator();
+        while (iterator.hasNext()) {
+            Deal next = iterator.next();
+            DealObject tryReceive;
+            while((tryReceive = next.tryReceive(cart))!=null){
+                oDeal.add(tryReceive);
+            }
+        }
+        return oDeal;
+    }
+   
 }

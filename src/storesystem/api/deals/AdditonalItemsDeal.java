@@ -9,6 +9,6 @@ import storesystem.api.*;
  *
  * @author Nathan
  */
-public class AdditonalItemsDeal extends Deal<ItemOrder[]> {
+public class AdditonalItemsDeal extends Deal<DealObject<ItemOrder[]>> {
     
 }
