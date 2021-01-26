@@ -230,7 +230,7 @@ public class Client {
                     WrappedItem witem = null;
                     switch(type){
                         case "wrap" -> {
-                            ItemPack p = new ItemPack();
+                            ItemPack p = new ItemPack();//
                             p.PackCount = lnscn.nextInt();
                             witem = p;
                         }

@@ -216,10 +216,8 @@ public class ItemRegistry implements Serializable{
         }
         item.name = name;
         item.price = 0.0;
-        if (true) {
-            
-        }
         registeredItems.put(name, item);
+        item.Registered = true;
     }
    
 }
