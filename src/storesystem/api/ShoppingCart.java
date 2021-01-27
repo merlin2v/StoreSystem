@@ -6,13 +6,36 @@
 
 import java.util.*;
 
-public class MainShoppingCart { 
+public class ShoppingCart { 
 	// Creates an array list with ItemOrder as the data type
 	// and order as the parameter
-	private ArrayList<ItemOrder> name = new ArrayList<ItemOrder>();
-	// Creates an array list with Integer as the data type 
-	// and order quantity as the parameter
-	private ArrayList<Integer> quantity = new ArrayList<Integer>();
+	public ArrayList<ItemOrder> shoppingcart = new ArrayList<ItemOrder>();
+	
+	public void add(ItemOrder itemOrder) {
+		shoppingcart.add(itemOrder);
+	}
 
-	// Creates a shopping cart order based on the name of the items
-	// and the desired quantity
+	public void remove(ItemOrder removeItemOrder) {
+		shoppingcart.remove(removeItemOrder);
+	}
+
+	public boolean searchItem(ItemOrder searchOrder) {
+		boolean found =false;
+		for(int index=0; index < shoppingcart.size(); index++) {
+			if(searchOrder.equals(shoppingcart.get(index)))
+				found=true;
+			}
+		return found;
+	}
+
+	public double getTotalCost() {
+		double totalCost=0;
+		for(int index=0; index <shoppingcart.size();index++ ) {
+			ItemOrder itemorder = shoppingcart.get(index);
+			totalCost +=itemorder.getItemOrderCost();
+			}
+		return totalCost;
+		}
+
+	}	
+	
