@@ -11,7 +11,8 @@ public class ShoppingCart {
 	// and order as the parameter
 	public ArrayList<ItemOrder> shoppingcart = new ArrayList<ItemOrder>();
 	
-	// Adds an item to shopping cart
+	// Adds a shopping cart order according to the name
+	// of the item
 	public void add(ItemOrder itemOrder) {
 		shoppingcart.add(itemOrder);
 	}
