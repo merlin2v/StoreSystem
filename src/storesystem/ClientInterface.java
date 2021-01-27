@@ -1,5 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
+ 
+* To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -8,6 +9,7 @@
  *
  * @author natha
  */
+package storesystem.api;
  import java.util.*;
  import java.io.*;
  
@@ -40,21 +42,22 @@ public static final int colwidth = 20;
     int quantity = console.nextInt();
     // make a while loop
     
-    
-    System.out.println("Would you like to get something else? Yes or No");
+   do { 
+   System.out.println("Would you like to get something else? Yes or No");
    String input = console.nextLine();
     YesNoCheck c = new YesNoCheck(input);
-   if(c.isYes());
-   return createList(arr,page);
+   if(c.isYes())
+  createList(arr,page); 
    else if(c.isNo())
    
    //No -> go to cart
    addToCart();
    else 
    System.out.println("not valid input");
+   
    // need to add throw exception when client try to fuck around
    
-         char cmd = 't';
+         char cmd = 't';   
          while (cmd != 'q'){
             // Prompt the user for the command
             System.out.print("Enter the command\n'C' to get Cart & Check Out,\t'N' to Next Page,\t'P' to Previous Page,\t'Q' to quit: ");
@@ -69,7 +72,7 @@ public static final int colwidth = 20;
                 
                   break;
                case 'n':
-             //     
+                  
                   break;
                case 'p':
              //     
