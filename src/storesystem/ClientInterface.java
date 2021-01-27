@@ -12,57 +12,116 @@
  import java.io.*;
  
 public class ClientInterface {
-  public static final int colwidth = 20; 
-    public static void main(String[] args) throws FileNotFoundException {
-     Scanner console = new Scanner(System.in) ; 
-  //  public static Inventory StoreInventory;
-  //  public static ItemRegistry Registry;
+public static Inventory StoreInventory;
+public static ItemRegistry Registry;
+public static final int colwidth = 20;
+   
+      public static void main(String[] args)  {
+      Scanner console = new Scanner(System.in) ;
+     
+    Set<String> listOfItems = Registry.getListOfItems();
+    int page = 0;
+    String [] arr = new String[listOfItems.size()];
+    arr = listOfItems.toArray(arr);
     
-    
-    
-    System.out.print("Welcome to Team 3 shopping center!\nYour satisfaction is ours pleasure!\n");
-    
+    ShoppingCart cart = new ShoppingCart();
+    Item item = new Item();
+         
+       
+    System.out.println("Welcome to Team 3 shopping center!\nYour satisfaction is ours pleasure!\n");    
     starline(colwidth);
+    System.out.println("Items available are below"); 
+    createList(arr,page);
+
+    System.out.println("What product would you like to buy?");
+    String name = console.next();
     
-   
-    System.out.println("Items are available below"); 
-   
-   //HashMap<Integer, String, Double> itemList = new HashMap<Integer, String, Double>();
-   
-   
-//   itemList.put(1, "Tisue", 1.0);
-//   itemList.put(2, "Coca-cola 12pk", 5.19);
-//   itemList.put(3, "Frosted Flakes", 3.79);
-//   itemList.put(4, "Sour Patch", 2.99);
-//   itemList.put(5, "Coffee", 6.89);
-//   itemList.put(6, "Doritos", 3.99);
-//   itemList.put(7, "Tisue", 1.0);
-//   itemList.put(8, "Tisue", 1.0);
-//   itemList.put(9, "Tisue", 1.0);
+    System.out.println("How many would you like? ");
+    int quantity = console.nextInt();
+    // make a while loop
     
-
-System.out.println("What product would you like to buy?");
- System.out.println("Please enter Item number: ");
-    int number = console.nextInt();
-  System.out.println("How many would you like? ");
-
-
-System.out.println("Would you like to get something else?");
-// if yes go back to itemList
-// else 
-//return total
-starline(colwidth);
-System.out.printf("Total price of item(s) with 10% tax " + itemName + price);
+    
+    System.out.println("Would you like to get something else? Yes or No");
+   String input = console.nextLine();
+    YesNoCheck c = new YesNoCheck(input);
+   if(c.isYes());
+   return createList(arr,page);
+   else if(c.isNo())
+   
+   //No -> go to cart
+   addToCart();
+   else 
+   System.out.println("not valid input");
+   // need to add throw exception when client try to fuck around
+   
+         char cmd = 't';
+         while (cmd != 'q'){
+            // Prompt the user for the command
+            System.out.print("Enter the command\n'C' to get Cart & Check Out,\t'N' to Next Page,\t'P' to Previous Page,\t'Q' to quit: ");
+            cmd = console.next().toLowerCase().charAt(0);
+            System.out.println(sep); 
+            // Take appropriate action           
+            switch(cmd) {
+               case 'c':
+                  System.out.println(addToCart);
+                  break;
+               case 'd':
+                
+                  break;
+               case 'n':
+             //     
+                  break;
+               case 'p':
+             //     
+                  break;
+               case 'q':
+                  break;
+               default:
+                  System.out.println("Invalid command");
 
  }
+ starline(colwidth);
+ }
+ String sep = "====================================================";
+ System.out.println("Thank you for shopping at Team 3 SHOPPING CENTER!");
+ }
  
- 
- 
+ public static void createList(String[] arr, int page){
+    int itemStart = page * 9;
+    for (int i = itemStart; i < 9+ itemStart; i++) {
+    if (i <arr.length){
+    String name =arr[i];
+    Item item = Registry.getItem(name);
+    double cost = item.getPrice();
+    if( item instanceof ItemPack) {
+    int cnt = ((ItemPack) item).PackCount;
+    System.out.printf("%1s. %2s \t %4spk $%3.2f\n", (i+1),name,cost,cnt);
+    break;
+    }
+   System.out.println("%1s. %2s \t $%3.2f\n",(i+1),name,cost);
+   } else {
+   System.out.println("");
+   }
+   
+  }
+}
+       // makes starline
   public static void starline(int colwidth){
       for (int i=0;i<=1+colwidth*3; i++){
          System.out.print("*");
       }
       System.out.println();
-   }        
+   }    
 
+
+public void addToCart(int quantity, String itemName, double price, ){ 
+
+    Item temp = new Item(itemName, price, quantity);
+    totalPrice += (price * quantity);
+    itemCount += quantity;
+    cart[itemCount] = temp;
+    if(itemCount==capacity){
+        increaseSize();
+    }
+}
 }
