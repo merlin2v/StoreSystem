@@ -5,6 +5,7 @@
  */
 
 import java.util.*;
+import java.util.ArrayList;
 
 public class ShoppingCart { 
 	// Creates an array list with ItemOrder as the data type
@@ -32,6 +33,8 @@ public class ShoppingCart {
 		return found;
 	}
 	
+	// 
+	
 	// Get total cost of shopping cart
 	public double getTotalCost() {
 		double totalCost = 0;
@@ -41,6 +44,7 @@ public class ShoppingCart {
 			}
 		return totalCost;
 		}
+	System.out.println("Total amount of payment is $" + (int)totalCost);
 
-	}	
+}	
 	
