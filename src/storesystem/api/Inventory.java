@@ -6,14 +6,24 @@
 package storesystem.api;
 
 import java.io.*;
-
+import java.util.*;
 /**
  *
  * @author natha
  */
 
 public class Inventory implements Serializable{
-
+    
+    // FIELDS //
+    
+    private HashMap<Item, Integer> inventory; 
+    
+    // CONSTRUCTORS //
+    
+    public Inventory() {
+        
+        this.inventory = new HashMap<Item, Integer>();
+    }
     /**
      *  loads an Inventory object from a file
      * @param file
@@ -50,24 +60,49 @@ public class Inventory implements Serializable{
     }
     
     public void addItem(Item i, int q) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        inventory.put(i, q);
     }
 
+    public void addItem(ItemOrder order) {
+        Item item = new Item(order.getName(), order.getCost());
+        inventory.put(item, order.getQuantity());
+    }
+        
     public void addItem(Item i) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        inventory.put(i, 1);
     }
 
-    public boolean removeItem(Item i) {
-        int apple = 5;
-        return removeItem(i,1);
+    public void removeItem(Item i) {
+        int q = inventory.get(i);
+        inventory.put(i, q - 1);
+        if (inventory.get(i) <= 0) {
+            inventory.remove(i);
+        }
     }
 
-    public boolean removeItem(Item i, int q) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void removeItems(Item i, int q) {
+        int current_q = inventory.get(i);
+        inventory.put(i, current_q - q);
+        if (inventory.get(i) <= 0) {
+            inventory.remove(i);
+        }
+    }
+    
+    public void removeItems(ItemOrder order) {
+        Item item = new Item(order.getName(), order.getCost());
+        inventory.remove(item);
+    }
+    
+    public boolean hasItem(Item i) {
+        return inventory.containsKey(i);
     }
 
+    public int getItem(Item i) {
+        return inventory.get(i);
+    }
     public ItemOrder getItemOrder(Item i) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ItemOrder item_order = new ItemOrder(i.getName(), inventory.get(i), i.getPrice());
+        return item_order;
     }
     
 }
