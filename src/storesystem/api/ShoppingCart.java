@@ -11,14 +11,17 @@ public class ShoppingCart {
 	// and order as the parameter
 	public ArrayList<ItemOrder> shoppingcart = new ArrayList<ItemOrder>();
 	
+	// Adds an item to shopping cart
 	public void add(ItemOrder itemOrder) {
 		shoppingcart.add(itemOrder);
 	}
-
+	
+	// Removes specific item from shopping cart
 	public void remove(ItemOrder removeItemOrder) {
 		shoppingcart.remove(removeItemOrder);
 	}
-
+	
+	// s
 	public boolean searchItem(ItemOrder searchOrder) {
 		boolean found =false;
 		for(int index=0; index < shoppingcart.size(); index++) {
