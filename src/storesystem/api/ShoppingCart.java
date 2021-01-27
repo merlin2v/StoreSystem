@@ -22,7 +22,7 @@ public class ShoppingCart {
 		shoppingcart.remove(removeItemOrder);
 	}
 	
-	// s
+	// Searches for item in shopping cart
 	public boolean searchItem(ItemOrder searchOrder) {
 		boolean found = false;
 		for(int index = 0; index < shoppingcart.size(); index++) {
@@ -31,7 +31,8 @@ public class ShoppingCart {
 			}
 		return found;
 	}
-
+	
+	// Get total cost of shopping cart
 	public double getTotalCost() {
 		double totalCost = 0;
 		for(int index = 0; index < shoppingcart.size(); index++ ) {
