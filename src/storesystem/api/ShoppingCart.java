@@ -23,19 +23,19 @@ public class ShoppingCart {
 	
 	// s
 	public boolean searchItem(ItemOrder searchOrder) {
-		boolean found =false;
-		for(int index=0; index < shoppingcart.size(); index++) {
+		boolean found = false;
+		for(int index = 0; index < shoppingcart.size(); index++) {
 			if(searchOrder.equals(shoppingcart.get(index)))
-				found=true;
+				found = true;
 			}
 		return found;
 	}
 
 	public double getTotalCost() {
-		double totalCost=0;
-		for(int index=0; index <shoppingcart.size();index++ ) {
+		double totalCost = 0;
+		for(int index = 0; index < shoppingcart.size(); index++ ) {
 			ItemOrder itemorder = shoppingcart.get(index);
-			totalCost +=itemorder.getItemOrderCost();
+			totalCost += itemorder.getItemOrderCost();
 			}
 		return totalCost;
 		}
