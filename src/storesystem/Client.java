@@ -10,15 +10,13 @@ import java.util.logging.Logger;
 import storesystem.api.*;
 
 /**
- *
- * @author 
+ * The start of the program 
+ * @author Nathan
  */
 public class Client {
 
     public static Inventory StoreInventory;
     public static ItemRegistry Registry;
-    
-    
     
     /** 
      * @param args the command line arguments
@@ -31,27 +29,15 @@ public class Client {
             serverConsole();
         }
         // TODO code application logic here
-        Set<String> listOfItems = Registry.getListOfItems();
-        int page = 11;
-        String[] arr = new String[listOfItems.size()];
-        arr = listOfItems.toArray(arr);
-        if (page<=10){
-            createList(arr,page);
-        }else{
-            //do nothing
-        }
-        
-        
-        
-        
-
+        ClientInterface.main(args);
+        //save();
     }
     /**
      * prints out the list
      * @param arr the array of items available
      * @param page the page number to print
      */
-    public static void createList(String[] arr, int page){
+    public static void printList(String[] arr, int page){
         
         int itemStart = page * 9;
         if (/* code to test max pages*/page>10 ) {
@@ -158,7 +144,7 @@ public class Client {
                                     + "save - saves items\n"
                                     + "init - reinitializes variables\n"
                                     + "item - test for an item\n"
-                                    + "wrap - registers an item with extra data\n"
+                                    + "wrap - registers an item with extra data\n" 
                                     + "\t Ex: wrap cola pack 4\n"
                     );
                 }
@@ -177,6 +163,7 @@ public class Client {
                     String name = lnscn.next();
                     if (!Registry.isItemRegistered(name)) {
                         System.err.println("Could not find item '"+name+"'");
+                        break;
                     }
                     Item i = Registry.getItem(name);
                     if (subcmd.equals("add")) {
@@ -191,7 +178,7 @@ public class Client {
                     }else if(subcmd.equals("sub")){
                         if (lnscn.hasNextInt()) {
                             int q = lnscn.nextInt();
-                            StoreInventory.removeItem(i, q);
+                            StoreInventory.removeItems(i, q);
                             System.out.println("item '"+name+"' removed '"+q+"' from Inventory");
                         }else{
                             StoreInventory.removeItem(i);
