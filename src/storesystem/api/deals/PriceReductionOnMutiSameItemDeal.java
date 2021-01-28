@@ -26,7 +26,7 @@ public class PriceReductionOnMutiSameItemDeal extends PriceReductionDeal{
     /**
      * Creates a Deal that can be applied to every {@code quantity} number of 
      * {@code search} items found in a {@link ShoppingCart}.
-     * @param search the Item to search which is assigned to {@SearchItem}
+     * @param search the Item to search which is assigned to {@link SearchItem}
      * @param quantity the quantity to reduce the price 
      * @param reducedPrice the reduced price per item
      */
@@ -39,7 +39,7 @@ public class PriceReductionOnMutiSameItemDeal extends PriceReductionDeal{
         /**
      * Creates a Deal that can be applied to every {@code quantity} number of 
      * {@code search} items found in a {@link ShoppingCart}.
-     * @param search the Item to search which is assigned to {@SearchItem}
+     * @param search the Item to search which is assigned to {@link SearchItem}
      * @param quantity the quantity to reduce the price 
      * @param reducedPrice the reduced price per item
      * @param max the max amount of times this deal can be applied 
@@ -53,11 +53,11 @@ public class PriceReductionOnMutiSameItemDeal extends PriceReductionDeal{
         this.Test = (cart, isPeek) -> {
             if (cart.hasItem(SearchItem)) {
                 ItemOrder order = cart.getItemOrder(SearchItem);
-                if (this.QuantityToRecieve >= order.Quantity) {
+                if (this.QuantityToRecieve >= order.getQuantity()) {
                     //calculations are done here to increase efficiency unless peeked
                     if (!isPeek) {
                         // we set TimesApplied here because we use the silent tryReceive
-                        this.TimesApplied = order.Quantity % this.QuantityToRecieve;
+                        this.TimesApplied = order.getQuantity() % this.QuantityToRecieve;
                         if (this.Max!=-1 && this.TimesApplied > this.Max) this.TimesApplied = this.Max;
                         this.Receivable.Reduction = this.ReducedPrice * this.TimesApplied; 
                     }
