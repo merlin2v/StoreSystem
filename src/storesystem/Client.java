@@ -115,7 +115,33 @@ public class Client {
         }
         
     }
-    
+    /**
+     * This is a barebones method to allow basic additions and removals to be made 
+     * to the {@link ItemRegistry} and the {@link Inventory} objects. <br>
+     * It includes some console line commands such as:
+     * <ul>
+     *      <li> help - a list of all available commands and how to use them. </li>
+     *      <li> stop - exits the console</li>
+     *      <li> register - registers item</li>
+     *          <ul>
+     *              <li> {@code register tissue 5.0}</li>
+     *              <li> {@code register pancake}</li>
+     *          </ul>
+     *      <li>inv - adds or removes from inventory
+     *          <ul>
+     *          <li> Ex: {@code inv add tissue}<br>
+     *               will add 1 tissue to inventory</li>
+     *          <li> Ex: {@code inv sub tissue 15} <br>
+     *               will remove 15 tissues from inventory</li>
+     *          </ul>
+     *      <li> save - saves items</li>
+     *      <li> init - reinitializes variables</li>
+     *      <li> item - test for an item</li>
+     *      <li> wrap - registers an item with extra data<br>
+     *           Ex: {@code wrap cola pack 4}</li>
+     * </ul>
+     * 
+     */
     public static void serverConsole(){
         Scanner scn = new Scanner(System.in);
         boolean run = true;
