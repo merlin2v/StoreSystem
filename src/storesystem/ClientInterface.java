@@ -37,8 +37,9 @@ public class ClientInterface {
         System.out.println("Welcome to Team 3 shopping center!\nYour satisfaction is ours pleasure!\n");    
         starline(colwidth);
         listSelectionMenu(arr, page, cart, console);
-        // need to add throw exception when client try to fuck around
-   
+       
+        starline(colwidth);
+        goToCart();
             
         String sep = "====================================================";
         System.out.println("Thank you for shopping at Team 3 SHOPPING CENTER!");
@@ -171,23 +172,32 @@ public class ClientInterface {
     }
 
     public static void goToCart(String[] arr, int page, ShoppingCart cart, Scanner console) {
-        
+    	completeTransaction compTrans = new completeTransaction();
+    	Deal deal = new Deal();
+    	
     	double tax, price, total, deals;
     	int itemQty;
-    	String itemName;
+    	String itemName, itemToRemove;
     	//to print items name , quantities and price
     	List<ItemOrder> itemInCart = cart.getItemOrders();
     	for (ItemOrder itemOrder : itemInCart) {
-	    System.out.printf("%s ,\t%d ,\t%.2f",itemOrder.getName(),itemOrder.getQuantity(),itemOrder.getPrice())
-		}
-    	
+	    System.out.printf("%s \t%d \t%.2f",itemOrder.getName(),itemOrder.getQuantity(),itemOrder.getPrice());
+		//to remove item inCart
+	   
+	    System.out.printf("%s \t%d \t-%.2f",itemOrder.getName(),itemOrder.getQuantity(),itemOrder.getRemoveItem());
+	   
   // tax
-    	System.out.print("%.2f %.2f" , itemOrder.(), itemOrder.getTotalCost(); 
     	
-    	completeTransaction complTrans = new completeTransaction();
-    	System.out.println("")
+    	
+	    System.out.printf("Tax: %.2f \tTotal (Tax not included): %.2f\n" , itemOrder.getTax(), itemOrder.getTotalCost(); 
+    	//deal
+	    System.out.printf("%s \t%.2f", itemOrder.getName, itemOrder.getPrice - itemOrder.getDeal());
+	    //final cost
+    	System.out.printf("Final Total %.2f", itemOrder.getPrice()*itemOrder.getTax()*itemOrder.getTotalCost());	
+    	 
+    	
     }
-
+    }
 
     public void addToCart(int quantity, String itemName, double price ){ 
         /*Item temp = new Item(itemName, price, quantity);
