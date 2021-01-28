@@ -47,6 +47,7 @@ public class ItemOrder implements Serializable, Countable<ItemOrder>{
     	return Quantity + "of" + item;
     }
 
+    @Override
     public ItemOrder addTo(ItemOrder add) {
         if (!this.item.equals(add.item)) {
             throw new IllegalArgumentException("must be same item");
@@ -54,10 +55,12 @@ public class ItemOrder implements Serializable, Countable<ItemOrder>{
         return new ItemOrder(item, add.Quantity+Quantity);
     }
 
+    @Override
     public ItemOrder addTo(Number add) {
         return new ItemOrder(item, add.intValue() + Quantity);
     }
 
+    @Override
     public ItemOrder subtractFrom(ItemOrder remove) {
         if (!this.item.equals(remove.item)) {
             throw new IllegalArgumentException("must be same item");
@@ -65,6 +68,7 @@ public class ItemOrder implements Serializable, Countable<ItemOrder>{
         return new ItemOrder(item, Quantity-remove.Quantity);
     }
 
+    @Override
     public ItemOrder subtractFrom(Number remove) {
         return new ItemOrder(item, Quantity-remove.intValue());
     }
