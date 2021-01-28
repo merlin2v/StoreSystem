@@ -23,7 +23,7 @@ public class YesNoCheck {
 
     /**
      * if is a yes reply
-     * @return 
+     * @return is {@code true} if yes is the input
      */
     public boolean isYes() {
         boolean b = YES.contains(this.input);
@@ -32,7 +32,7 @@ public class YesNoCheck {
     }
     /**
      *  if is a no reply
-     * @return 
+     * @return is {@code true} if no is the input
      */
     public boolean isNo() {
         boolean b = NO.contains(this.input);
@@ -41,7 +41,8 @@ public class YesNoCheck {
     }
     /**
      * if yes or no has returned true
-     * @return 
+     * @return {@code true} if {@link isYes()} or {@link isNo()} has been called 
+     * and returned true.
      */
     public boolean answered(){
         return answered;
