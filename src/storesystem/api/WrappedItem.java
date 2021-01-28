@@ -16,7 +16,7 @@ public class WrappedItem extends Item{
     boolean Registered = false;
     /**
      * gets whether the value is a valid registered item
-     * @return 
+     * @return if this object has been registered or not
      */
     public boolean isRegistered(){
         return Registered;
