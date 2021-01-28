@@ -9,7 +9,7 @@ import java.io.Serializable;
  *
  * @author Dani
  */
-public class ItemOrder implements Serializable{
+public class ItemOrder implements Serializable, Countable<ItemOrder>{
 	//fields
     String item;
     int Quantity;
@@ -32,6 +32,10 @@ public class ItemOrder implements Serializable{
     }
     
     public String getName() {
+    	return Item.Name;
+    }
+    
+    public String getItem() {
     	return item;
     }
     
