@@ -171,7 +171,19 @@ public class ClientInterface {
     }
 
     public static void goToCart(String[] arr, int page, ShoppingCart cart, Scanner console) {
-        //TODO this 
+        
+    	double tax, price, total, deals;
+    	int itemQty;
+    	String itemName;
+    	//to print items name , quantities and price
+    	List<ItemOrder> itemInCart = cart.getItemOrders();
+    	for (ItemOrder itemOrder : itemInCart) {
+	    System.out.printf("%s ,\t%d ,\t%.2f",itemOrder.getName(),itemOrder.getQuantity(),itemOrder.getPrice())
+		}
+    	
+  // tax
+    	System.out.print("Tax: " + cart.calculateTax(); 
+    	
     }
 
 
