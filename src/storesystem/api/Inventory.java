@@ -26,10 +26,10 @@ public class Inventory implements Serializable{
     }
     /**
      *  loads an Inventory object from a file
-     * @param file
-     * @return
-     * @throws FileNotFoundException
-     * @throws IOException 
+     * @param file the file to load from
+     * @return The inventory object
+     * @throws FileNotFoundException if the file cannot be found
+     * @throws IOException if an i/o exception occurs
      */
     public static Inventory loadInventory(File file) throws FileNotFoundException, IOException {
         FileInputStream fin = new FileInputStream(file);
@@ -48,8 +48,8 @@ public class Inventory implements Serializable{
     /**
      * this saves the {@link Inventory} as a {@link Serializable} object
      * @param f the file to serialize to
-     * @throws java.io.FileNotFoundException
-     * @throws java.io.IOException
+     * @throws java.io.FileNotFoundException if the file cannot be found
+     * @throws java.io.IOException if an i/o exception occurs
      * @see Serializable
      */
     public void save(File f) throws FileNotFoundException, IOException{
@@ -101,7 +101,7 @@ public class Inventory implements Serializable{
         return inventory.get(i);
     }
     public ItemOrder getItemOrder(Item i) {
-        ItemOrder item_order = new ItemOrder(i.getName(), inventory.get(i), i.getPrice());
+        ItemOrder item_order = new ItemOrder(i, inventory.get(i));
         return item_order;
     }
     
