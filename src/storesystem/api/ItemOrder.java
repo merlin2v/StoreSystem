@@ -10,9 +10,9 @@ import java.io.Serializable;
  * @author Dani
  */
 public class ItemOrder implements Serializable{
-	//private fields
-    private String item;
-    public int Quantity;
+	//fields
+    String item;
+    int Quantity;
     private double pricePerUnit;
     
     //constructors
@@ -25,6 +25,14 @@ public class ItemOrder implements Serializable{
     //getters
     public double getCost() {
     	return Quantity * pricePerUnit;
+    }
+    
+    public int getQuantity() {
+    	return Quantity;
+    }
+    
+    public String getName() {
+    	return item;
     }
     
     //setters
