@@ -23,6 +23,14 @@ public class ShoppingCart {
 		shoppingcart.remove(removeItemOrder);
 	}
 	
+	// Removes the given item from this list
+	public boolean remove(Item item, int quantity) {
+		return remove(new ItemOrder(item, quantity));
+		newValue = ItemOrder.addTo(ItemOrder); { 
+			if(newValue < 0 ) return false;
+		}
+	}
+	
 	// Searches for item in shopping cart
 	public boolean searchItem(ItemOrder searchOrder) {
 		boolean found = false;
@@ -32,8 +40,6 @@ public class ShoppingCart {
 			}
 		return found;
 	}
-	
-	// 
 	
 	// Get total cost of shopping cart
 	public double getTotalCost() {
