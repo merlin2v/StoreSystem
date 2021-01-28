@@ -21,7 +21,7 @@ public class ClientInterface {
     public static final int colwidth = 20;
    /**
     * Starts up the user interface
-    * @param args 
+    * @param args the application arguments
     */
     public static void main(String[] args)  {
         
@@ -47,7 +47,7 @@ public class ClientInterface {
      * prints out the list
      * @param arr the array of items available
      * @param page the page number to print
-`    * @return the range of items to select from
+     * @return the range of items to select from
      */
     public static Item[] printList(String[] arr, int page){
         return printList(arr, page, false);
@@ -95,6 +95,7 @@ public class ClientInterface {
      * @param page the page the list is on (from 1 to 9) 
      * @param cart the cart object that is being used
      * @param console  the input line to receive from the user
+     * @param silent if true, list will not print
      */
     public static void listSelectionMenu(String[] arr, int page, ShoppingCart cart, Scanner console, boolean silent) {
         
@@ -164,7 +165,6 @@ public class ClientInterface {
      * @param page the page the list is on (from 1 to 9) 
      * @param cart the cart object that is being used
      * @param console the input line to receive from the user
-     * @param silent whether or not to hide the prints
      */
     public static void listSelectionMenu(String[] arr, int page, ShoppingCart cart, Scanner console) {
         listSelectionMenu(arr, page, cart, console, false);
