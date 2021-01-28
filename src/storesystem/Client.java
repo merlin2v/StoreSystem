@@ -107,11 +107,11 @@ public class Client {
             } catch (IOException ex) {
                 System.out.println("malformatted Inventory object");
                 System.out.println("creating new object");
-                StoreInventory = new Inventory();
+                StoreInventory = new Inventory(Registry);
             }
         }else{
             System.out.println("Inventory not found ");
-            StoreInventory = new Inventory();
+            StoreInventory = new Inventory(Registry);
         }
         
     }
