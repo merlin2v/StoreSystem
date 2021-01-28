@@ -13,10 +13,21 @@ public class ShoppingCart {
 	// Creates an array list with ItemOrder as the data type
 	// and order as the parameter
 	public ArrayList<ItemOrder> shoppingcart = new ArrayList<ItemOrder>();
+        
+        public final Inventory ShopInventory;
+
+        public ShoppingCart(Inventory ShopInventory) {
+            this.ShopInventory = ShopInventory;
+        }
 	
 	// Adds a shopping cart order according to the name
 	// of the item
-	public void add(ItemOrder itemOrder) {
+        /**
+         * Adds a shopping cart order according to the name
+         * of the item
+         * @param itemOrder the item to add
+         */
+	public void addItem(ItemOrder itemOrder) {
 		shoppingcart.add(itemOrder);
 	}
 	
@@ -64,11 +75,24 @@ public class ShoppingCart {
 	//System.out.println("Total amount of payment is $" + (int)totalCost);
 
     public boolean hasItem(Item item) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for(int index = 0; index < shoppingcart.size(); index++) {
+            if(item.equals(shoppingcart.get(index).item))
+                return true;
+        }
+        return false;
     }
 
+    /**
+     * gets the ItemOrder object for the Item 
+     * @param item
+     * @return 
+     */
     public ItemOrder getItemOrder(Item item) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for(int index = 0; index < shoppingcart.size(); index++) {
+            if(item.equals(shoppingcart.get(index).item))
+                return shoppingcart.get(index);
+            }
+        return null;
     }
 
 }	
