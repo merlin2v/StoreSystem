@@ -29,7 +29,7 @@ public class CartDeals{
     /**
      * remove a DealObject
      * @param o DealObject to remove
-     * @return 
+     * @return if it has successfully been removed or not
      */
     public boolean remove(DealObject o) {
         boolean r = DealObjects.remove(o);
@@ -42,14 +42,14 @@ public class CartDeals{
     }
     /**
      * if there is a price reduction inside
-     * @return 
+     * @return if this has any reduction in price
      */
     public boolean hasReduction() {
         return totalReduction != 0;
     }
     /**
      * gets the total reduction 
-     * @return 
+     * @return the total reduction
      */
     public double getTotalReduction(){
         return totalReduction;
@@ -57,7 +57,7 @@ public class CartDeals{
 
     /**
      * gets an unmodifiable Collection of the deal objects
-     * @return 
+     * @return an unmodifiable Collection of {@link DealObject}
      */
     public Collection<DealObject> getDealObjects() {
         return Collections.unmodifiableCollection(DealObjects);
