@@ -13,7 +13,7 @@ public class ReductionDealObject extends DealObject<Double>{
 
     /**
      * create a simple price reduction
-     * @param Reduction 
+     * @param Reduction the amount that gets reduced
      */
     public ReductionDealObject(double Reduction) {
         this.Reduction = Reduction;
@@ -30,7 +30,7 @@ public class ReductionDealObject extends DealObject<Double>{
 
     /**
      * gets the Reduction in price
-     * @return 
+     * @return  get the reduction value
      */
     @Override
     public Double getReceivable() {
