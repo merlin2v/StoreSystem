@@ -36,8 +36,8 @@ public class ItemRegistry implements Serializable{
      * Loads a Registry from a given file object.
      * @param file the file where the object was serialized 
      * @return the item registry ItemRegistry
-     * @throws FileNotFoundException
-     * @throws IOException 
+     * @throws FileNotFoundException if the file cannot be found
+     * @throws IOException if an i/o exception occurs
      */
     public static ItemRegistry loadRegistry(File file) throws FileNotFoundException, IOException {
         FileInputStream fin = new FileInputStream(file);
@@ -55,7 +55,7 @@ public class ItemRegistry implements Serializable{
 
     /**
      * gets the default registry 
-     * @return
+     * @return gets the default registry. If none can be found, one will be created.
      */
     public static ItemRegistry getDefaultRegistry(){
         try {
@@ -69,8 +69,8 @@ public class ItemRegistry implements Serializable{
     /**
      * this saves the {@link ItemRegistry} as a {@link Serializable} object
      * @param f the file to serialize to
-     * @throws java.io.FileNotFoundException
-     * @throws java.io.IOException
+     * @throws java.io.FileNotFoundException if the file cannot be found
+     * @throws java.io.IOException if an i/o exception occurs
      * @see Serializable
      */
     public void save(File f) throws FileNotFoundException, IOException{
@@ -91,14 +91,14 @@ public class ItemRegistry implements Serializable{
  }
  
  /**Returns a Set containing all of the item names in the registry.
-  * @return registeredItems.keySet(); Set<String>
+  * @return {@code registeredItems.keySet(); Set<String>}
   */
  public Set<String> getListOfItems() {
 	 return registeredItems.keySet();
  }
  /**Registers item into registry with only the name (no price listed).
   * @param name String
-  * @throws ItemRegisteredException
+  * @throws ItemRegisteredException if the item has already been registered 
   */
  public void registerItem(String name)  { 
 	 if (registeredItems.containsKey(name)) {
@@ -190,8 +190,9 @@ public class ItemRegistry implements Serializable{
  }
  /**
   * Runs through all of the deals and checks for valid deals
-  * @param cart - the cart object to check for deals
-  * @return 
+  * @param cart  the cart object to check for deals
+  * @return the {@link CartDeals} object that contains the deals
+  * @see CartDeals
   */
     public CartDeals runThroughDeals(ShoppingCart cart){
         CartDeals oDeal = new CartDeals();
