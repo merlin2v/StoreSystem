@@ -41,6 +41,17 @@ public class ShoppingCart {
 		return found;
 	}
 	
+	Item item = removeItemOrder.Item;
+	if(hasItem(item)) {
+		Item thisItemOrder = getItemOrder(item);
+		ItemOrder newValue = thisItemOrder.subtractFrom(removeItemOrder);
+		if(newValue < 0 ) return false; // does nothing if the item subtraction is bigger than what the cart has
+		if(newValue == 0) 
+			arrayList.remove(thisItemOrder);
+		else thisItemOrder.Quantity = newValue.Quantity; // we can set the value here because it is a refrence (I think)
+		return true;
+	} else return false; // does nothing if we don't have the item
+	
 	// Get total cost of shopping cart
 	public double getTotalCost() {
 		double totalCost = 0;
