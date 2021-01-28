@@ -16,12 +16,13 @@ public class Inventory implements Serializable{
     
     // FIELDS //
     
+    public final ItemRegistry Registry;
     private HashMap<Item, Integer> inventory; 
     
     // CONSTRUCTORS //
     
-    public Inventory() {
-        
+    public Inventory(ItemRegistry reg) {
+        this.Registry = reg;
         this.inventory = new HashMap<Item, Integer>();
     }
     /**
