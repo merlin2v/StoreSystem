@@ -10,9 +10,9 @@ import java.io.Serializable;
  * @author Dani
  */
 public class Item implements Serializable{
-	//private fields
-    private String name;
-    private double price;
+	// fields
+    String name;
+    double price;
     
     //constructors
     public Item (String name, double price) {

@@ -4,7 +4,7 @@
 package storesystem.api;
 
 /**
- *
+ * This represents a pack of items
  * @author Nathan
  */
 public class ItemPack extends WrappedItem{
