@@ -1,3 +1,5 @@
+package storesystem.api;
+
 /* Tracy Pham 
  * CS211 - Group #3 Project 1
  * January 20/2021
@@ -19,16 +21,23 @@ public class ShoppingCart {
 	}
 	
 	// Removes specific item from shopping cart
-	public void remove(ItemOrder removeItemOrder) {
-		shoppingcart.remove(removeItemOrder);
+	public boolean remove(ItemOrder removeItemOrder) {
+		Item item = removeItemOrder.item;
+                if(hasItem(item)){
+                    ItemOrder thisItemOrder = getItemOrder(item);
+                    ItemOrder newValue = thisItemOrder.subtractFrom(removeItemOrder);
+                    if(newValue.Quantity < 0 ) return false; // do nothing if the item subtraction is bigger than what the cart has
+                    if(newValue.Quantity == 0) 
+                        shoppingcart.remove(thisItemOrder);
+                    else thisItemOrder.Quantity = newValue.Quantity; // we can set the value here because it is a refrence (I think)
+                    return true;
+                }else return false;// do nothing if we don't have the item
+                
 	}
 	
 	// Removes the given item from this list
 	public boolean remove(Item item, int quantity) {
 		return remove(new ItemOrder(item, quantity));
-		newValue = ItemOrder.addTo(ItemOrder); { 
-			if(newValue < 0 ) return false;
-		}
 	}
 	
 	// Searches for item in shopping cart
@@ -41,27 +50,26 @@ public class ShoppingCart {
 		return found;
 	}
 	
-	Item item = removeItemOrder.Item;
-	if(hasItem(item)) {
-		Item thisItemOrder = getItemOrder(item);
-		ItemOrder newValue = thisItemOrder.subtractFrom(removeItemOrder);
-		if(newValue < 0 ) return false; // does nothing if the item subtraction is bigger than what the cart has
-		if(newValue == 0) 
-			arrayList.remove(thisItemOrder);
-		else thisItemOrder.Quantity = newValue.Quantity; // we can set the value here because it is a refrence (I think)
-		return true;
-	} else return false; // does nothing if we don't have the item
 	
 	// Get total cost of shopping cart
 	public double getTotalCost() {
 		double totalCost = 0;
 		for(int index = 0; index < shoppingcart.size(); index++ ) {
 			ItemOrder itemorder = shoppingcart.get(index);
-			totalCost += itemorder.getItemOrderCost();
+			totalCost += itemorder.getCost();
 			}
 		return totalCost;
 		}
-	System.out.println("Total amount of payment is $" + (int)totalCost);
+        
+	//System.out.println("Total amount of payment is $" + (int)totalCost);
+
+    public boolean hasItem(Item item) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public ItemOrder getItemOrder(Item item) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
 }	
 	
