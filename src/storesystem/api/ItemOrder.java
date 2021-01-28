@@ -10,21 +10,19 @@ import java.io.Serializable;
  * @author Dani
  */
 public class ItemOrder implements Serializable, Countable<ItemOrder>{
-	//fields
-    String item;
+    //fields
+    Item item;
     int Quantity;
-    private double pricePerUnit;
     
     //constructors
-    public ItemOrder(String item, int quantity, double pricePerUnit) {
+    public ItemOrder(Item item, int quantity) {
     	this.item = item;
     	this.Quantity = quantity;
-    	this.pricePerUnit = pricePerUnit;
     }
     
     //getters
     public double getCost() {
-    	return Quantity * pricePerUnit;
+    	return Quantity * item.getPrice();
     }
     
     public int getQuantity() {
@@ -32,10 +30,10 @@ public class ItemOrder implements Serializable, Countable<ItemOrder>{
     }
     
     public String getName() {
-    	return Item.Name;
+    	return item.getName();
     }
     
-    public String getItem() {
+    public Item getItem() {
     	return item;
     }
     
@@ -47,5 +45,31 @@ public class ItemOrder implements Serializable, Countable<ItemOrder>{
     //toString method
     public String toString() {
     	return Quantity + "of" + item;
+    }
+
+    @Override
+    public ItemOrder addTo(ItemOrder add) {
+        if (!this.item.equals(add.item)) {
+            throw new IllegalArgumentException("must be same item");
+        }
+        return new ItemOrder(item, add.Quantity+Quantity);
+    }
+
+    @Override
+    public ItemOrder addTo(Number add) {
+        return new ItemOrder(item, add.intValue() + Quantity);
+    }
+
+    @Override
+    public ItemOrder subtractFrom(ItemOrder remove) {
+        if (!this.item.equals(remove.item)) {
+            throw new IllegalArgumentException("must be same item");
+        }
+        return new ItemOrder(item, Quantity-remove.Quantity);
+    }
+
+    @Override
+    public ItemOrder subtractFrom(Number remove) {
+        return new ItemOrder(item, Quantity-remove.intValue());
     }
 }
