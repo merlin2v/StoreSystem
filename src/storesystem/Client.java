@@ -186,14 +186,14 @@ public class Client {
                         }
                     }else if(subcmd.equals("get")){
                         ItemOrder io = StoreInventory.getItemOrder(i);
-                        System.out.println("Current inventory: \n\t'"+name+"' quantity:"+ io.Quantity );
+                        System.out.println("Current inventory: \n\t'"+name+"' quantity:"+ io.getQuantity() );
                         break;
                     }else{
                         System.err.println("Invalid sub-command. Try 'add', 'sub' or 'get'");
                         break;
                     }
                     ItemOrder io = StoreInventory.getItemOrder(i);
-                    System.out.println("Current inventory updated: \n\t'"+name+"' quantity:"+ io.Quantity );
+                    System.out.println("Current inventory updated: \n\t'"+name+"' quantity:"+ io.getQuantity() );
                 }
                 case "item" -> {
                     String name = lnscn.next();
@@ -216,7 +216,7 @@ public class Client {
                             if (i!=null) {
                                 ItemOrder io = StoreInventory.getItemOrder(i);
                                 if (io!=null) {
-                                    System.out.println(item +" Q: "+io.Quantity);
+                                    System.out.println(item +" Q: "+io.getQuantity());
                                 }
                             }
                         }
