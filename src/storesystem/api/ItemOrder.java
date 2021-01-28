@@ -11,12 +11,12 @@ import java.io.Serializable;
  */
 public class ItemOrder implements Serializable, Countable<ItemOrder>{
 	//fields
-    String item;
+    Item item;
     int Quantity;
     private double pricePerUnit;
     
     //constructors
-    public ItemOrder(String item, int quantity, double pricePerUnit) {
+    public ItemOrder(Item item, int quantity, double pricePerUnit) {
     	this.item = item;
     	this.Quantity = quantity;
     	this.pricePerUnit = pricePerUnit;
