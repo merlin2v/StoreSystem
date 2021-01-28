@@ -36,7 +36,7 @@ public class Deal<T extends DealObject> implements Serializable, Cloneable{
     int Max=-1; 
     /**
      * Peek to see what the value would evaluate to. Some peeking may be disabled on some implementations.  
-     * @param items The Items that are to be evaluated
+     * @param cart The cart containing the items that are to be evaluated
      * @return whether or not do Receive the {@link Receivable}  
      */
     public boolean peekPredictate(ShoppingCart cart){
