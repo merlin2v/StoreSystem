@@ -182,8 +182,10 @@ public class ClientInterface {
 		}
     	
   // tax
-    	System.out.print("Tax: " + cart.calculateTax(); 
+    	System.out.print("%.2f %.2f" , itemOrder.(), itemOrder.getTotalCost(); 
     	
+    	completeTransaction complTrans = new completeTransaction();
+    	System.out.println("")
     }
 
 
