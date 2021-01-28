@@ -207,6 +207,29 @@ public class Client {
                     initialize();
                     System.out.println("re-loaded");
                 }
+                case "list" -> {
+                    String subcmd = lnscn.next();
+                    if (subcmd.equals("inv")) {
+                        Set<String> listOfItems = Registry.getListOfItems();
+                        for (String item : listOfItems) {
+                            Item i = Registry.getItem(item);
+                            if (i!=null) {
+                                ItemOrder io = StoreInventory.getItemOrder(i);
+                                if (io!=null) {
+                                    System.out.println(item +" Q: "+io.Quantity);
+                                }
+                            }
+                        }
+                    }else if (subcmd.equals("reg")) {
+                        Set<String> listOfItems = Registry.getListOfItems();
+                        for (String item : listOfItems) {
+                            Item i = Registry.getItem(item);
+                            System.out.println(item +" $"+i.getPrice());
+                        }
+                    }else{
+                        System.err.println("Please use `inv` or `reg`");
+                    }
+                }
                 case "wrap" -> {
                     String name = lnscn.next();
                     String type = lnscn.next();
