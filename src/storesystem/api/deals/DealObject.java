@@ -16,18 +16,18 @@ public abstract class DealObject<T> {
     
     /**
      * if the price is reduced 
-     * @return 
+     * @return if the price should be reduced
      */
     public abstract boolean isReduction();
     /**
      * if the price is reduced get the reduction value
-     * @return 
+     * @return the Receivable object for this {@code DealObject}
      */
     public abstract T getReceivable();
     
     /**
      * get string representation of this object
-     * @return 
+     * @return a string
      */
     public abstract String getMessage();
 }
