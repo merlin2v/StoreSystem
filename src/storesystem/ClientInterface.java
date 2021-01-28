@@ -70,10 +70,10 @@ public class ClientInterface {
                 double cost = item.getPrice();
                 if( item instanceof ItemPack) {
                     int cnt = ((ItemPack) item).PackCount;
-                    if (!silent) System.out.printf("%1s. %2s \t %4spk $%3.2f\n", (i+1),name,cost,cnt);
+                    if (!silent) System.out.printf("%1s. %2s \t %4spk $%3.2f\n", ((i - itemStart)+1),name,cost,cnt);
                     break;
                 }else{
-                    if (!silent) System.out.printf("%1s. %2s \t $%3.2f\n", (i+1),name, cost);
+                    if (!silent) System.out.printf("%1s. %2s \t $%3.2f\n", ((i - itemStart)+1),name, cost);
                 }
             } else {
                 if (!silent) System.out.println("");
@@ -98,11 +98,11 @@ public class ClientInterface {
      */
     public static void listSelectionMenu(String[] arr, int page, ShoppingCart cart, Scanner console, boolean silent) {
         
-        if (silent) System.out.println("Items available are below"); 
+        if (!silent) System.out.println("Items available are below"); 
         Item[] items = printList(arr,page,silent);
 
         // Prompt the user for the command
-        if (silent) System.out.print("Enter the command\n'C' to get Cart & Check Out,\t'N' to Next Page,\t'P' to Previous Page,\t'Q' to quit: ");
+        if (!silent) System.out.print("Enter the command\n'C' to get Cart & Check Out,\t'N' to Next Page,\t'P' to Previous Page,\t'Q' to quit: ");
         char cmd = 't';
         cmd = console.next().toLowerCase().charAt(0);
         Item item;
