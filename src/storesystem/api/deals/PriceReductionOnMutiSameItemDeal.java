@@ -61,7 +61,7 @@ public class PriceReductionOnMutiSameItemDeal extends PriceReductionDeal{
         };
     }
 
-        /**
+    /**
      * Creates a Deal that can be applied to every {@code quantity} number of 
      * {@code search} items found in a {@link ShoppingCart}.
      * @param search the Item to search which is assigned to {@link SearchItem}
