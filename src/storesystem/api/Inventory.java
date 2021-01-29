@@ -28,8 +28,8 @@ public class Inventory implements Serializable{
     // CONSTRUCTORS //
 
     /**
-     *
-     * @param reg
+     * creates a blank inventory object
+     * @param reg the registry of this item
      */
     
     public Inventory(ItemRegistry reg) {
@@ -129,10 +129,9 @@ public class Inventory implements Serializable{
         return removeItems(new ItemOrder(i,q));
     }
     /**
-     * 
-     * Removes the item order from the inventory
-     * @param order the order object to be removed
-     * @return 
+     * Remove items from the inventory
+     * @param order the ItemOrder
+     * @return if this has been successful
      */
     public boolean removeItems(ItemOrder order) {
         if(!Registry.hasItem(order.getName())) throw new ItemNotFoundException("Item not found in registry");
@@ -150,11 +149,22 @@ public class Inventory implements Serializable{
     }
     
     // ACCESSORS //
+
+    /**
+     * tests to see if an Item exists
+     * @param i the item
+     * @return whether the item can be found in inventory
+     */
     
     public boolean hasItem(Item i) {
         return inventory.containsKey(i);
     }
 
+    /**
+     * gets the quantity of an item
+     * @param i the item
+     * @return the quantity of that item
+     */
     public int getItem(Item i) {
         return inventory.get(i).Quantity;
     }
