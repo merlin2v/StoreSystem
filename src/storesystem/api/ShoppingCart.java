@@ -174,7 +174,7 @@ public class ShoppingCart {
     public double calculateTotal(){
         if (Double.isNaN(total)) {
             double totalCost = getTotalCost();
-            deals = ShopInventory.Registry.runThroughDeals(this);
+            deals = findDeals();
             total = totalCost - deals.getTotalReduction();
             return total;
         }else return total;

@@ -40,10 +40,6 @@ public class ClientInterface {
         System.out.println("Welcome to Team 3 shopping center!\nYour satisfaction is ours pleasure!\n");    
         starline(colwidth);
         listSelectionMenu(arr, page, cart, console);
-       
-        starline(colwidth);
-        goToCart(arr, page, cart, console);
-            
         String sep = "====================================================";
         System.out.println("Thank you for shopping at Team 3 SHOPPING CENTER!");
     }
@@ -155,16 +151,23 @@ public class ClientInterface {
                 System.out.println("Would you like to get something else? Yes or No");
                 String input = console.nextLine();
                 c = new YesNoCheck(input);
-                if(c.isYes()) listSelectionMenu(arr, page, cart, console); 
-                else if(c.isNo()) goToCart(arr, page, cart, console); 
+                if(c.isYes()) {
+                    listSelectionMenu(arr, page, cart, console); 
+                    return;
+                }
+                else if(c.isNo()) {
+                    goToCart(arr, page, cart, console); ///FLAG
+                    return;
+                }
                 else System.out.println("not valid input");
+                
             }while(!c.answered());
         }else{
         // Take appropriate action           
             switch(cmd) {
                case 'c':
                     goToCart(arr, page, cart, console); 
-                    break;
+                    return;
                case 'd':
                     
                     break;
@@ -201,7 +204,6 @@ public class ClientInterface {
                   listSelectionMenu(arr, page, cart, console);
                   return;
             }
-            starline(colwidth);
         }
     }
 
@@ -224,19 +226,21 @@ public class ClientInterface {
     	int itemQty;
     	String itemName, itemToRemove;
     	//to print items name , quantities and price
+        starline(colwidth);
+        System.out.println("  Receipt");
+        starline(colwidth);
     	List<ItemOrder> itemInCart = cart.getItemOrders();
     	for (ItemOrder itemOrder : itemInCart) {
-	    System.out.printf("%s \t%d \t%.2f",itemOrder.getName(),itemOrder.getQuantity(),itemOrder.getCost());
+	    System.out.printf("%d x \t%s \t%.2f\n",itemOrder.getQuantity(),itemOrder.getName(),itemOrder.getCost());
 		//to remove item inCart
 	   
 	    //System.out.printf("%s \t%d \t-%.2f",itemOrder.getName(),itemOrder.getQuantity(),itemOrder.getRemoveItem());
         }
         // tax
         CartDeals findDeals = cart.findDeals();
-        System.out.println(findDeals.hasReduction());
         for (DealObject deal : findDeals.getDealObjects()) {
             if (deal.isReduction()) {
-                System.out.printf("%s \t%d \t-%.2f\n","","",deal.getReceivable());
+                System.out.printf("\t\t-%.2f\n",deal.getReceivable());
             }
         }
     	
@@ -245,17 +249,27 @@ public class ClientInterface {
 	   // System.out.printf("%s \t%.2f\n", itemOrder.getName(), itemOrder.getCost() /*- itemOrder.getDeal()*/);
 	    //final cost
         System.out.printf("Final Total %.2f\n", cart.calculateFinalTotal());	
-    	 
-    	
+    	starline(colwidth);
+    	cart.completeTransaction();
+        
+        System.out.println("Are you ready to check out? Yes or No");
+        YesNoCheck c;
+            do { 
+                String input = console.nextLine();
+                c = new YesNoCheck(input);
+                if(c.isYes()) {
+                    cart.completeTransaction();
+                    System.out.println("Transaction Complete!");
+                    return;
+                }
+                else if(c.isNo()) {
+                    listSelectionMenu(arr, page, cart, console); 
+                    return;
+                }
+                else System.out.println("not valid input");
+                
+            }while(!c.answered());
     }
 
-    public void addToCart(int quantity, String itemName, double price ){ 
-        /*Item temp = new Item(itemName, price, quantity);
-        totalPrice += (price * quantity);
-        itemCount += quantity;
-        cart[itemCount] = temp;
-        if(itemCount==capacity){
-            increaseSize();
-        }*/
-    }
+    
 }

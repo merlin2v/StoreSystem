@@ -337,7 +337,7 @@ public class Client {
         tryAddInv("vase",5);
         tryAddInv("bowl",7);
         
-        tryAddDeal("bag",10,0.4);
+        tryAddDeal("bag",10,0.1);
     }
     private static void tryAddDeal(String name, int amount, double discount){
         if (Registry.hasItem(name)){

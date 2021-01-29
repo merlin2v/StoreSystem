@@ -12,7 +12,7 @@ import storesystem.api.deals.*;
 */
 public class CartDeals{
     private Collection<DealObject> DealObjects = new ArrayList<>();
-    private double totalReduction;
+    private double totalReduction = 0;
     
     
 
@@ -61,6 +61,11 @@ public class CartDeals{
      */
     public Collection<DealObject> getDealObjects() {
         return Collections.unmodifiableCollection(DealObjects);
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone(); 
     }
     
             

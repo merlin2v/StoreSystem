@@ -8,6 +8,8 @@ import java.util.*;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import storesystem.api.deals.*;
 /**
@@ -206,7 +208,9 @@ public class ItemRegistry implements Serializable{
         CartDeals oDeal = new CartDeals();
         Iterator<Deal> iterator = deals.iterator();
         while (iterator.hasNext()) {
-            Deal next = iterator.next();
+            Deal next;
+                next =  iterator.next();
+                next.reset();
             DealObject tryReceive;
             while((tryReceive = next.tryReceive(cart))!=null){
                 oDeal.add(tryReceive);
