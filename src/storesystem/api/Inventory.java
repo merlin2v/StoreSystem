@@ -40,6 +40,9 @@ public class Inventory implements Serializable{
      * @throws FileNotFoundException if the file cannot be found
      * @throws IOException if an i/o exception occurs
      */
+    
+    // MUTATORS //
+    
     public static Inventory loadInventory(File file, ItemRegistry reg) throws FileNotFoundException, IOException {
         FileInputStream fin = new FileInputStream(file);
         ObjectInputStream in = new ObjectInputStream(fin);
@@ -120,7 +123,12 @@ public class Inventory implements Serializable{
     public boolean removeItems(Item i, int q) {
         return removeItems(new ItemOrder(i,q));
     }
-    
+    /**
+     * 
+     * Removes the item order from the inventory
+     * @param order the order object to be removed
+     * @return 
+     */
     public boolean removeItems(ItemOrder order) {
         if(!Registry.hasItem(order.getName())) throw new ItemNotFoundException("Item not found in registry");
         if (order.getName().equals(Registry.getItem(order.getName())) && 
@@ -135,6 +143,8 @@ public class Inventory implements Serializable{
             return true;
         }else return false;
     }
+    
+    // ACCESSORS //
     
     public boolean hasItem(Item i) {
         return inventory.containsKey(i);
@@ -155,10 +165,9 @@ public class Inventory implements Serializable{
         if (i.getName().equals(Registry.getItem(i.name)) && 
                 i != Registry.getItem(i.name)) 
             throw new ItemNotFoundException("Item in registry does not match");
-        if(inventory.containsKey(i)){
+        if (inventory.containsKey(i)){
             ItemOrder item_order = inventory.get(i);
             return item_order;
-        }else return  new ItemOrder(i, 0);
+        } else return  new ItemOrder(i, 0);
     }
-    
 }
