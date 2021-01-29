@@ -59,5 +59,4 @@ public class YesNoCheck {
     public void reset(){
         answered = false;
     }
-    
 }
