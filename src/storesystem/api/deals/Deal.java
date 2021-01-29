@@ -4,8 +4,6 @@
 package storesystem.api.deals;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.function.BiPredicate;
 import storesystem.api.*;
 
 /**
@@ -43,14 +41,6 @@ public class Deal<T extends DealObject > implements Serializable{
         return Test.test(cart, true);
     }
     /**
-     * run the test 
-     * @param items The Items that are to be evaluated
-     * @return whether or not do Receive the {@link receivable}  
-     */
-    /*public boolean test(ItemOrder[] items){
-        return Test.test(items, false);
-    }*/
-    /**
      * try to get the {@link Receivable} if evaluated. 
      * @param cart The Items that are to be evaluated
      * @return get the {@link Receivable} or null if false
@@ -85,6 +75,4 @@ public class Deal<T extends DealObject > implements Serializable{
     public void reset() {
         this.TimesApplied = 0;
     }
-    
-    
 }
