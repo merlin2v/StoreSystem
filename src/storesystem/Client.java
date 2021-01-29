@@ -8,7 +8,7 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import storesystem.api.*;
-import storesystem.api.deals.PriceReductionOnMutiSameItemDeal;
+import storesystem.api.deals.*;
 
 /**
  * The start of the program 
@@ -37,7 +37,7 @@ public class Client {
             serverConsole();
         }
         // TODO code application logic here
-        ClientInterface.main(args);
+        ClientInterface.runApplication(args);
         save();
     }
     /**
