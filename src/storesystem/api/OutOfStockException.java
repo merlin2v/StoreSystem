@@ -26,6 +26,4 @@ public class OutOfStockException extends Exception {
     public String getMessage() {
         return "Out of Stock";
     }
-    
-    
 }
