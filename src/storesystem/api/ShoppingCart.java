@@ -161,7 +161,7 @@ public class ShoppingCart {
      * @return the amount that tax will add
      */
     public double calculateTax(){
-        if (tax == Double.NaN) {
+        if (Double.isNaN(tax)) {
             tax = calculateTotal() * TaxPercent;
             return tax;
         }else return tax;
@@ -172,7 +172,7 @@ public class ShoppingCart {
      * @return the amount that tax will add
      */
     public double calculateTotal(){
-        if (total == Double.NaN) {
+        if (Double.isNaN(total)) {
             double totalCost = getTotalCost();
             deals = ShopInventory.Registry.runThroughDeals(this);
             total = totalCost - deals.getTotalReduction();
@@ -197,7 +197,7 @@ public class ShoppingCart {
      * @return the final total that will be payed for
      */
     public double calculateFinalTotal(){
-        if (finalTotal == Double.NaN) {
+        if (Double.isNaN(finalTotal)) {
             finalTotal = calculateTotal() + calculateTax();
         }
         return finalTotal;

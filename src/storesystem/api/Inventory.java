@@ -15,24 +15,32 @@ import java.util.*;
 public class Inventory implements Serializable{
     
     // FIELDS //
+
     
-    public final ItemRegistry Registry;
-    private HashMap<Item, Integer> inventory; 
+    
+    /**
+     * the registry of this object
+     */
+    
+    public transient ItemRegistry Registry;
+    private TreeMap<Item, ItemOrder> inventory; 
     
     // CONSTRUCTORS //
     
     public Inventory(ItemRegistry reg) {
         this.Registry = reg;
-        this.inventory = new HashMap<Item, Integer>();
+        this.inventory = new TreeMap<Item, ItemOrder>();
     }
+    
     /**
      *  loads an Inventory object from a file
      * @param file the file to load from
+     * @param reg the registry to assign to this
      * @return The inventory object
      * @throws FileNotFoundException if the file cannot be found
      * @throws IOException if an i/o exception occurs
      */
-    public static Inventory loadInventory(File file) throws FileNotFoundException, IOException {
+    public static Inventory loadInventory(File file, ItemRegistry reg) throws FileNotFoundException, IOException {
         FileInputStream fin = new FileInputStream(file);
         ObjectInputStream in = new ObjectInputStream(fin);
         Inventory r;
@@ -43,9 +51,12 @@ public class Inventory implements Serializable{
         }
         in.close();
         fin.close();
+        r.Registry = reg;
         return r;
     }
-
+    
+    
+    
     /**
      * this saves the {@link Inventory} as a {@link Serializable} object
      * @param f the file to serialize to
@@ -60,38 +71,69 @@ public class Inventory implements Serializable{
         out.close();
     }
     
-    public void addItem(Item i, int q) {
-        inventory.put(i, q);
+    /**
+     * Adds one item
+     * @param i the item to add
+     * @param q the quantity to add
+     */
+    public void addItems(Item i, int q) {
+        addItems(new ItemOrder(i, q));
     }
 
-    public void addItem(ItemOrder order) {
-        Item item = new Item(order.getName(), order.getCost());
-        inventory.put(item, order.getQuantity());
+    /**
+     * adds ItemOrders to the inventory
+     * @param order the {@code ItemOrder} with the items to add
+     */
+    public void addItems(ItemOrder order) {
+        if(!Registry.hasItem(order.getName())) throw new ItemNotFoundException("Item not found in registry");
+        if (order.getName().equals(Registry.getItem(order.getName())) && 
+                order.getItem() != Registry.getItem(order.getName())) 
+            throw new ItemNotFoundException("Item in registry does not match");
+        
+        if(inventory.containsKey(order.getItem())){
+            inventory.put(order.getItem(), inventory.get(order.item).addTo(order));
+        }else inventory.put(order.getItem(), order);
     }
         
+    /**
+     * Adds a single item to the inventory
+     * @param i the item to add
+     */
     public void addItem(Item i) {
-        inventory.put(i, 1);
+        addItems(i, 1);
+    }
+    /**
+     * removes a single item
+     * @param i the item to remove
+     * @return if the item has been removed or not
+     */
+    public boolean removeItem(Item i) {
+        return removeItems(i, 1);
     }
 
-    public void removeItem(Item i) {
-        int q = inventory.get(i);
-        inventory.put(i, q - 1);
-        if (inventory.get(i) <= 0) {
-            inventory.remove(i);
-        }
-    }
-
-    public void removeItems(Item i, int q) {
-        int current_q = inventory.get(i);
-        inventory.put(i, current_q - q);
-        if (inventory.get(i) <= 0) {
-            inventory.remove(i);
-        }
+    /**
+     * Remove items from the inventory
+     * @param i the item to remove
+     * @param q the quality 
+     * @return 
+     */
+    public boolean removeItems(Item i, int q) {
+        return removeItems(new ItemOrder(i,q));
     }
     
-    public void removeItems(ItemOrder order) {
-        Item item = new Item(order.getName(), order.getCost());
-        inventory.remove(item);
+    public boolean removeItems(ItemOrder order) {
+        if(!Registry.hasItem(order.getName())) throw new ItemNotFoundException("Item not found in registry");
+        if (order.getName().equals(Registry.getItem(order.getName())) && 
+                order.getItem() != Registry.getItem(order.getName())) 
+            throw new ItemNotFoundException("Item in registry does not match");
+        if(inventory.containsKey(order.getItem())){
+            ItemOrder inv = inventory.get(order.item);
+            ItemOrder ninv = inv.subtractFrom(order);
+            if (ninv.Quantity <= 0) {
+                inventory.remove(order.item);
+            }else inventory.put(order.getItem(), ninv);
+            return true;
+        }else return false;
     }
     
     public boolean hasItem(Item i) {
@@ -99,11 +141,24 @@ public class Inventory implements Serializable{
     }
 
     public int getItem(Item i) {
-        return inventory.get(i);
+        return inventory.get(i).Quantity;
     }
-    public ItemOrder getItemOrder(Item i) {
-        ItemOrder item_order = new ItemOrder(i, inventory.get(i));
-        return item_order;
+    
+    /**
+     *  Gets an ItemOrder object
+     * @param i the item to find
+     * @return an item order representing this object
+     * @throws ItemNotFoundException thrown when Item is not found in registry
+     */
+    public ItemOrder getItemOrder(Item i) throws ItemNotFoundException{
+        if(!Registry.hasItem(i.name)) throw new ItemNotFoundException("Item not found in registry");
+        if (i.getName().equals(Registry.getItem(i.name)) && 
+                i != Registry.getItem(i.name)) 
+            throw new ItemNotFoundException("Item in registry does not match");
+        if(inventory.containsKey(i)){
+            ItemOrder item_order = inventory.get(i);
+            return item_order;
+        }else return  new ItemOrder(i, 0);
     }
     
 }

@@ -21,7 +21,7 @@ public class ItemRegistry implements Serializable{
     //Private fields
     private TreeMap<String, Item> registeredItems; //TreeMap that holds registered items
     private Set<Deal> deals; //HashSet that holds deals
-    private static String DEFAULT_REGISTRY_PATH = "data/registry.obj";
+    private static String DEFAULT_REGISTRY_PATH = "data/registry.obj"; 
     
     public int value;
     
@@ -141,6 +141,14 @@ public class ItemRegistry implements Serializable{
 	 } else {
 		 return registeredItems.get(name);
 	 }
+ }
+ 
+  /**Returns if the key can be found (the name of the item).
+  * @param name String
+  * @return Item
+  */
+ public boolean hasItem(String name) { 
+	 return registeredItems.containsKey(name);
  }
  
  /**Changes specified item's price.

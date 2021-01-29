@@ -12,9 +12,12 @@
 package storesystem;
  import java.util.*;
  import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static storesystem.Client.Registry;
 import static storesystem.Client.StoreInventory;
 import storesystem.api.*;
+import storesystem.api.deals.DealObject;
  
 public class ClientInterface {
 
@@ -32,14 +35,14 @@ public class ClientInterface {
         String [] arr = new String[listOfItems.size()];
         arr = listOfItems.toArray(arr);
 
-        ShoppingCart cart = new ShoppingCart();
+        ShoppingCart cart = new ShoppingCart(StoreInventory);
 
         System.out.println("Welcome to Team 3 shopping center!\nYour satisfaction is ours pleasure!\n");    
         starline(colwidth);
         listSelectionMenu(arr, page, cart, console);
        
         starline(colwidth);
-        goToCart();
+        goToCart(arr, page, cart, console);
             
         String sep = "====================================================";
         System.out.println("Thank you for shopping at Team 3 SHOPPING CENTER!");
@@ -71,7 +74,7 @@ public class ClientInterface {
                 double cost = item.getPrice();
                 if( item instanceof ItemPack) {
                     int cnt = ((ItemPack) item).PackCount;
-                    if (!silent) System.out.printf("%1s. %2s \t %4spk $%3.2f\n", ((i - itemStart)+1),name,cost,cnt);
+                    if (!silent) System.out.printf("%1s. %2s \t %3spk $%4.2f\n", ((i - itemStart)+1),name,cnt,cost);
                     break;
                 }else{
                     if (!silent) System.out.printf("%1s. %2s \t $%3.2f\n", ((i - itemStart)+1),name, cost);
@@ -106,14 +109,47 @@ public class ClientInterface {
         // Prompt the user for the command
         if (!silent) System.out.print("Enter the command\n'C' to get Cart & Check Out,\t'N' to Next Page,\t'P' to Previous Page,\t'Q' to quit: ");
         char cmd = 't';
-        cmd = console.next().toLowerCase().charAt(0);
+        cmd = console.nextLine().toLowerCase().charAt(0);
         Item item;
         if(Character.isDigit(cmd) && cmd != '0'){
-            item = items[Integer.parseInt(cmd+"")];
+            item = items[Integer.parseInt(cmd+"")-1];
+            if (item==null) {
+                System.out.println("not a valid selection");
+                System.out.println("");
+                System.out.println("Press Enter to Continue...");
+                console.nextLine();
+                listSelectionMenu(arr, page, cart, console);
+                return;
+            }
+            
             System.out.println("How many would you like? ");
-            int quantity = console.nextInt();
+            boolean isDone =false;
+            Integer quantity = null;
+            while (!isDone) {
+                String line=console.nextLine();
+                try{
+                    quantity = Integer.parseInt(line);
+                    isDone =true;
+                }catch(NumberFormatException e){
+                    System.out.println("Please enter a valid number");
+                }
+                
+            }
             ItemOrder io = new ItemOrder(item, quantity);
-            cart.add(io);
+            try {
+                cart.addItems(io);
+            } catch (NotEnoughInOfStockException ex) {
+                if (ex.StockQuantity==0) {
+                    System.out.println("Sorry we don't have any of that item in stock at the moment.");
+                }else{
+                    System.out.println("Sorry we currently only have ("+ex.StockQuantity+") in stock");
+                }
+                System.out.println("");
+                System.out.println("Press Enter to Continue...");
+                console.nextLine();
+                listSelectionMenu(arr, page, cart, console);//
+                return;
+            }
             YesNoCheck c;
             do { 
                 System.out.println("Would you like to get something else? Yes or No");
@@ -138,23 +174,32 @@ public class ClientInterface {
                        page++;
                        //listSelectionMenu(arr, page, cart, console);
                    }else{
-                       System.out.println("There is no next page to go to");
+                        System.out.println("There is no next page to go to");
+                        System.out.println("");
+                        System.out.println("Press Enter to Continue...");
+                        console.nextLine();
                    }
                    listSelectionMenu(arr, page, cart, console);
-                  break;
+                   return;
+                  
                case 'p':
                    //first test for previous page
                    if (page!=0) {
                        page--;
                    }else{
-                       System.out.println("There is no previous page to go back to");
+                        System.out.println("There is no previous page to go back to");
+                        System.out.println("");
+                        System.out.println("Press Enter to Continue...");
+                        console.nextLine();
                    }
                    listSelectionMenu(arr, page, cart, console);
-                  break;
+                  return;
                case 'q':
                   break;
                default:
                   System.out.println("Invalid command");
+                  listSelectionMenu(arr, page, cart, console);
+                  return;
             }
             starline(colwidth);
         }
@@ -172,8 +217,8 @@ public class ClientInterface {
     }
 
     public static void goToCart(String[] arr, int page, ShoppingCart cart, Scanner console) {
-    	completeTransaction compTrans = new completeTransaction();
-    	Deal deal = new Deal();
+    	//completeTransaction compTrans = new completeTransaction();
+    	//Deal deal = new Deal();
     	
     	double tax, price, total, deals;
     	int itemQty;
@@ -181,22 +226,27 @@ public class ClientInterface {
     	//to print items name , quantities and price
     	List<ItemOrder> itemInCart = cart.getItemOrders();
     	for (ItemOrder itemOrder : itemInCart) {
-	    System.out.printf("%s \t%d \t%.2f",itemOrder.getName(),itemOrder.getQuantity(),itemOrder.getPrice());
+	    System.out.printf("%s \t%d \t%.2f",itemOrder.getName(),itemOrder.getQuantity(),itemOrder.getCost());
 		//to remove item inCart
 	   
-	    System.out.printf("%s \t%d \t-%.2f",itemOrder.getName(),itemOrder.getQuantity(),itemOrder.getRemoveItem());
-	   
-  // tax
+	    //System.out.printf("%s \t%d \t-%.2f",itemOrder.getName(),itemOrder.getQuantity(),itemOrder.getRemoveItem());
+        }
+        // tax
+        CartDeals findDeals = cart.findDeals();
+        System.out.println(findDeals.hasReduction());
+        for (DealObject deal : findDeals.getDealObjects()) {
+            if (deal.isReduction()) {
+                System.out.printf("%s \t%d \t-%.2f\n","","",deal.getReceivable());
+            }
+        }
     	
-    	
-	    System.out.printf("Tax: %.2f \tTotal (Tax not included): %.2f\n" , itemOrder.getTax(), itemOrder.getTotalCost(); 
+        System.out.printf("Tax: %.2f \tTotal (Tax not included): %.2f\n" , cart.calculateTax(), cart.getTotalCost()); 
     	//deal
-	    System.out.printf("%s \t%.2f", itemOrder.getName, itemOrder.getPrice - itemOrder.getDeal());
+	   // System.out.printf("%s \t%.2f\n", itemOrder.getName(), itemOrder.getCost() /*- itemOrder.getDeal()*/);
 	    //final cost
-    	System.out.printf("Final Total %.2f", itemOrder.getPrice()*itemOrder.getTax()*itemOrder.getTotalCost());	
+        System.out.printf("Final Total %.2f\n", cart.calculateFinalTotal());	
     	 
     	
-    }
     }
 
     public void addToCart(int quantity, String itemName, double price ){ 

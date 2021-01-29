@@ -8,6 +8,7 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import storesystem.api.*;
+import storesystem.api.deals.PriceReductionOnMutiSameItemDeal;
 
 /**
  * The start of the program 
@@ -103,7 +104,7 @@ public class Client {
         
         if (invf.exists()) {
             try {
-                StoreInventory = Inventory.loadInventory(invf);
+                StoreInventory = Inventory.loadInventory(invf, Registry);
             } catch (IOException ex) {
                 System.out.println("malformatted Inventory object");
                 System.out.println("creating new object");
@@ -195,7 +196,7 @@ public class Client {
                     if (subcmd.equals("add")) {
                         if (lnscn.hasNextInt()) {
                             int q = lnscn.nextInt();
-                            StoreInventory.addItem(i, q);
+                            StoreInventory.addItems(i, q);
                             System.out.println("item '"+name+"' added '"+q+"' to Inventory");
                         }else{
                             StoreInventory.addItem(i);
@@ -232,6 +233,9 @@ public class Client {
                 case "load" -> {
                     initialize();
                     System.out.println("re-loaded");
+                }
+                case "createdefault" -> {
+                    assignDefaultRegInv();
                 }
                 case "list" -> {
                     String subcmd = lnscn.next();
@@ -290,4 +294,70 @@ public class Client {
         }
     }
     
+    /**
+     * run this in the server console using {@code createdefault}
+     */
+    public static void assignDefaultRegInv(){
+        tryRegisterItem("hat",12);
+        tryRegisterItem("table",52.89);
+        tryRegisterItem("chair",32.54);
+        tryRegisterItem("chocolate", 2.99);
+        tryRegisterItem("candle",7.59);
+        tryRegisterItem("hourglass",8.45);
+        tryRegisterItem("lamp",17.89);
+        tryRegisterItem("cookie",5.99);
+        tryRegisterItem("towel",16.77);
+        tryRegisterItem("booklet",7);
+        tryRegisterItem("bag",0.05);
+        tryRegisterItem("mat",14.95);
+        tryRegisterItemPack("cola",12.99,12);
+        tryRegisterItemPack("pencils",4.99,20);
+        tryRegisterItem("fan",27.99);
+        tryRegisterItem("cap",4.59);
+        tryRegisterItem("vase",32.95);
+        tryRegisterItem("bowl",12.54);
+        
+        tryAddInv("hat",12);
+        tryAddInv("table",2);
+        tryAddInv("chair",7);
+        tryAddInv("chocolate", 20);
+        tryAddInv("candle",7);
+        tryAddInv("hourglass",4);
+        tryAddInv("lamp",4);
+        tryAddInv("cookie",10);
+        tryAddInv("towel",8);
+        tryAddInv("booklet",10);
+        tryAddInv("bag",60);
+        tryAddInv("mat",6);
+        tryAddInv("cola",3);
+        tryAddInv("pencils",20);
+        tryAddInv("fan",5);
+        tryAddInv("cap",12);
+        tryAddInv("vase",5);
+        tryAddInv("bowl",7);
+        
+        tryAddDeal("bag",10,0.4);
+    }
+    private static void tryAddDeal(String name, int amount, double discount){
+        if (Registry.hasItem(name)){
+            Item i = Registry.getItem(name);
+            Registry.addDeal(new PriceReductionOnMutiSameItemDeal(i, amount, discount));
+        }
+    }
+    
+    private static void tryAddInv(String name, int amount){
+        if (Registry.hasItem(name)){
+            Item i = Registry.getItem(name);
+            StoreInventory.addItems(i,amount);
+        }
+    }
+    private static void tryRegisterItem(String name, double cost){
+        if (!Registry.hasItem(name)) Registry.registerItem(name, cost);
+    }
+    private static void tryRegisterItemPack(String name, double cost, int peices){
+        ItemPack pk = new ItemPack();
+        pk.PackCount = peices;
+        pk.setPrice(cost);
+        if (!Registry.hasItem(name)) Registry.registerWrappedItem(name, pk);
+    }
 }
