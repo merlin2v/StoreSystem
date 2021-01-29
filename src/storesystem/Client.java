@@ -346,13 +346,13 @@ public class Client {
         
         tryAddDeal("bag",10,0.1);
     }
+    
     private static void tryAddDeal(String name, int amount, double discount){
         if (Registry.hasItem(name)){
             Item i = Registry.getItem(name);
             Registry.addDeal(new PriceReductionOnMutiSameItemDeal(i, amount, discount));
         }
     }
-    
     private static void tryAddInv(String name, int amount){
         if (Registry.hasItem(name)){
             Item i = Registry.getItem(name);
