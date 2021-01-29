@@ -10,6 +10,7 @@ import java.util.*;
 /**
  *
  * @author natha
+ * @author donovanclay
  */
 
 public class Inventory implements Serializable{
