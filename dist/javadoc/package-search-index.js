@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"storesystem"},{"l":"storesystem.api"},{"l":"storesystem.api.deals"}]
