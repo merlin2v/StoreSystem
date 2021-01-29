@@ -16,12 +16,12 @@ import storesystem.api.deals.*;
  */
 public class ClientInterface {
 
-    private static final int colwidth = 20;
+    private static final int COL_WIDTH = 20;
    /**
     * Starts up the user interface
     * @param args the application arguments
     */
-    public static void main(String[] args)  {
+    public static void runApplication(String[] args)  {
         
         Scanner console = new Scanner(System.in) ;
      
@@ -33,7 +33,7 @@ public class ClientInterface {
         ShoppingCart cart = new ShoppingCart(StoreInventory);
 
         System.out.println("Welcome to Team 3 shopping center!\nYour satisfaction is ours pleasure!\n");    
-        starline(colwidth);
+        starline(COL_WIDTH);
         listSelectionMenu(arr, page, cart, console);
         String sep = "====================================================";
         System.out.println("Thank you for shopping at Team 3 SHOPPING CENTER!");
@@ -231,9 +231,9 @@ public class ClientInterface {
     	int itemQty;
     	String itemName, itemToRemove;
     	//to print items name , quantities and price
-        starline(colwidth);
+        starline(COL_WIDTH);
         System.out.println("  Receipt");
-        starline(colwidth);
+        starline(COL_WIDTH);
     	List<ItemOrder> itemInCart = cart.getItemOrders();
     	for (ItemOrder itemOrder : itemInCart) {
 	    System.out.printf("%d x \t%s \t%.2f\n",itemOrder.getQuantity(),itemOrder.getName(),itemOrder.getCost());
@@ -254,7 +254,7 @@ public class ClientInterface {
 	   // System.out.printf("%s \t%.2f\n", itemOrder.getName(), itemOrder.getCost() /*- itemOrder.getDeal()*/);
 	    //final cost
         System.out.printf("Final Total %.2f\n", cart.calculateFinalTotal());	
-    	starline(colwidth);
+    	starline(COL_WIDTH);
         
         System.out.println("Are you ready to check out? Yes or No");
         YesNoCheck c;
