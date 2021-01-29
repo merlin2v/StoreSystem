@@ -291,6 +291,5 @@ public class ShoppingCart {
     {
     return "Items in cart: " + shoppingcart.toString() + " Total Cost: " + this.getTotalCost();
     }
-
 }	
 	
