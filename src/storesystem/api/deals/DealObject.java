@@ -13,7 +13,6 @@ import storesystem.api.*;
  */
 public abstract class DealObject<T> implements Serializable{
 
-    
     /**
      * if the price is reduced 
      * @return if the price should be reduced
