@@ -31,7 +31,7 @@ public class Client {
         }
         // TODO code application logic here
         ClientInterface.main(args);
-        //save();
+        save();
     }
     /**
      * prints out the list

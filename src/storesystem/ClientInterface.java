@@ -250,7 +250,6 @@ public class ClientInterface {
 	    //final cost
         System.out.printf("Final Total %.2f\n", cart.calculateFinalTotal());	
     	starline(colwidth);
-    	cart.completeTransaction();
         
         System.out.println("Are you ready to check out? Yes or No");
         YesNoCheck c;
