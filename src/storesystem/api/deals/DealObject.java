@@ -5,13 +5,14 @@
  */
 package storesystem.api.deals;
 
+import java.io.Serializable;
 import storesystem.api.*;
 
 /**
  * Represents a Receivable object in {@link Deal}
  * @author Nathan
  */
-public abstract class DealObject<T> {
+public abstract class DealObject<T> implements Serializable, Cloneable{
 
     
     /**

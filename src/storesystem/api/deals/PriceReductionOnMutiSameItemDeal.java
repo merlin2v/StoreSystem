@@ -3,6 +3,8 @@
  */
 package storesystem.api.deals;
 
+import java.io.Serializable;
+import java.util.function.BiPredicate;
 import storesystem.api.*;
 
 /**
@@ -72,17 +74,19 @@ public class PriceReductionOnMutiSameItemDeal extends PriceReductionDeal{
         this.QuantityToRecieve = quantity;
         this.ReducedPrice = reducedPrice;
         this.Max = max;
-        
+        hasRun=false;//to prevent loops
         this.Test = (cart, isPeek) -> {
-            if (cart.hasItem(SearchItem)) {
+            
+            if (cart.hasItem(SearchItem)&&!this.hasRun) {
                 ItemOrder order = cart.getItemOrder(SearchItem);
-                if (this.QuantityToRecieve >= order.getQuantity()) {
+                if (this.QuantityToRecieve <= order.getQuantity()) {
                     //calculations are done here to increase efficiency unless peeked
                     if (!isPeek) {
                         // we set TimesApplied here because we use the silent tryReceive
-                        this.TimesApplied = order.getQuantity() % this.QuantityToRecieve;
+                        this.TimesApplied = order.getQuantity() / this.QuantityToRecieve;
                         if (this.Max!=-1 && this.TimesApplied > this.Max) this.TimesApplied = this.Max;
                         this.Receivable.Reduction = this.ReducedPrice * this.TimesApplied; 
+                        this.hasRun=true;
                     }
                     return true;
                 }else return false;
@@ -95,6 +99,12 @@ public class PriceReductionOnMutiSameItemDeal extends PriceReductionDeal{
     @Override
     public ReductionDealObject tryReceive(ShoppingCart cart) {
         return super.silentReceive(cart); 
+    }
+
+    @Override
+    public void reset() {
+        super.reset(); 
+        hasRun=false;//to prevent loops
     }
 
     

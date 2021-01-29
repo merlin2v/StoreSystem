@@ -14,13 +14,13 @@ import storesystem.api.*;
  * @author Nathan
  * @param <T> the type of Receivable
  */
-public class Deal<T extends DealObject> implements Serializable, Cloneable{
+public class Deal<T extends DealObject > implements Serializable, Cloneable{
     /** the check to see if the deal is valid and can be applied.
      * to use:  
      *  {@code Predicate<Item[]> predictate = (items, isPeek) -> {return items.length < 2;};}  
      * {@code isPeek} is whether it is a peek method or a real method.   
      */
-    public BiPredicate<ShoppingCart, Boolean> Test;
+    public CartPredictate Test;
     /**
      * The object that is received.
      */
@@ -77,4 +77,18 @@ public class Deal<T extends DealObject> implements Serializable, Cloneable{
         }
         return ret;
     }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone(); 
+    }
+
+    /**
+     * override this method to implement a reset mechanism 
+     */
+    public void reset() {
+        this.TimesApplied = 0;
+    }
+    
+    
 }
