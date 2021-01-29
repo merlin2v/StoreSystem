@@ -115,7 +115,7 @@ public class Inventory implements Serializable{
      * Remove items from the inventory
      * @param i the item to remove
      * @param q the quality 
-     * @return 
+     * @return if this has been successful
      */
     public boolean removeItems(Item i, int q) {
         return removeItems(new ItemOrder(i,q));

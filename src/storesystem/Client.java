@@ -123,11 +123,12 @@ public class Client {
      * <ul>
      *      <li> help - a list of all available commands and how to use them. </li>
      *      <li> stop - exits the console</li>
-     *      <li> register - registers item</li>
+     *      <li> register - registers item
      *          <ul>
      *              <li> {@code register tissue 5.0}</li>
      *              <li> {@code register pancake}</li>
      *          </ul>
+     *      </li>
      *      <li>inv - adds or removes from inventory
      *          <ul>
      *          <li> Ex: {@code inv add tissue}<br>

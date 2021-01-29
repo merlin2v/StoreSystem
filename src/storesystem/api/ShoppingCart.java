@@ -261,8 +261,8 @@ public class ShoppingCart {
 
     /**
      * gets the ItemOrder object for the Item 
-     * @param item
-     * @return 
+     * @param item the item to use to find the ItemOrder
+     * @return the ItemOrder that was found
      */
     public ItemOrder getItemOrder(Item item) {
         for(int index = 0; index < shoppingcart.size(); index++) {
