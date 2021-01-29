@@ -16,12 +16,9 @@ public class Inventory implements Serializable{
     
     // FIELDS //
 
-    
-    
     /**
      * the registry of this object
      */
-    
     public transient ItemRegistry Registry;
     private TreeMap<Item, ItemOrder> inventory; 
     
@@ -31,11 +28,12 @@ public class Inventory implements Serializable{
      * creates a blank inventory object
      * @param reg the registry of this item
      */
-    
     public Inventory(ItemRegistry reg) {
         this.Registry = reg;
         this.inventory = new TreeMap<Item, ItemOrder>();
     }
+    
+    // MUTATORS //
     
     /**
      *  loads an Inventory object from a file
@@ -45,9 +43,6 @@ public class Inventory implements Serializable{
      * @throws FileNotFoundException if the file cannot be found
      * @throws IOException if an i/o exception occurs
      */
-    
-    // MUTATORS //
-    
     public static Inventory loadInventory(File file, ItemRegistry reg) throws FileNotFoundException, IOException {
         FileInputStream fin = new FileInputStream(file);
         ObjectInputStream in = new ObjectInputStream(fin);
@@ -62,8 +57,6 @@ public class Inventory implements Serializable{
         r.Registry = reg;
         return r;
     }
-    
-    
     
     /**
      * this saves the {@link Inventory} as a {@link Serializable} object
@@ -155,7 +148,6 @@ public class Inventory implements Serializable{
      * @param i the item
      * @return whether the item can be found in inventory
      */
-    
     public boolean hasItem(Item i) {
         return inventory.containsKey(i);
     }
