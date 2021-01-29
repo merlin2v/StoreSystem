@@ -6,6 +6,7 @@ package storesystem.api;
 /**
  * Represents an arithmetic-enabled object by adding add and subtract functions. 
  * @author Nathan
+ * @param <T> the object that can be added to
  */
 public interface Countable<T> {
     /**

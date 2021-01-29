@@ -5,23 +5,21 @@
  * and open the template in the editor.
  */
 
-/**
- *
- * @author natha
- */
 package storesystem;
  import java.util.*;
  import java.io.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import static storesystem.Client.Registry;
 import static storesystem.Client.StoreInventory;
 import storesystem.api.*;
-import storesystem.api.deals.DealObject;
+import storesystem.api.deals.*;
  
+/**
+ * The main client interface
+ * @author Dat
+ */
 public class ClientInterface {
 
-    public static final int colwidth = 20;
+    private static final int colwidth = 20;
    /**
     * Starts up the user interface
     * @param args the application arguments
@@ -81,7 +79,10 @@ public class ClientInterface {
         }
         return items;
     }
-       // makes starline
+    /**
+     * makes starline
+     * @param colwidth width of the starline
+     */
     public static void starline(int colwidth){
         for (int i=0;i<=1+colwidth*3; i++){
             System.out.print("*");
@@ -218,6 +219,13 @@ public class ClientInterface {
         listSelectionMenu(arr, page, cart, console, false);
     }
 
+    /**
+     * prints out the receipt and asks if the user want's to complete transaction.
+     * @param arr - the list array
+     * @param page - the page of the list
+     * @param cart - the shopping cart object
+     * @param console - the input Scanner
+     */
     public static void goToCart(String[] arr, int page, ShoppingCart cart, Scanner console) {
     	//completeTransaction compTrans = new completeTransaction();
     	//Deal deal = new Deal();

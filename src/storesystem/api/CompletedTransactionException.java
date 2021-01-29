@@ -10,12 +10,24 @@ package storesystem.api;
  */
 public class CompletedTransactionException extends RuntimeException {
 
+    /**
+     * creates a CompletedTransactionException with no explanation 
+     */
     public CompletedTransactionException() {
     }
     private String Explain=null;
-    CompletedTransactionException(String explain) {
+    /**
+     * creates a CompletedTransactionException with an explanation 
+     * @param explain the explanation
+     */
+    public CompletedTransactionException(String explain) {
         Explain = explain;
     }
+
+    /**
+     * get a message that indicates why an exception has been thrown
+     * @return a message explaining the reason for the exception 
+     */
     @Override
     public String getMessage() {
         return ((Explain==null)?"Cannot do action.":Explain)+" Transaction is completed.";

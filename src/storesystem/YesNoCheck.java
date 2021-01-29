@@ -17,6 +17,11 @@ public class YesNoCheck {
             {"YES","Y","YA","YE"});
     private static List<String> NO = Arrays.asList(new String[]
             {"NO","N","NA","NOPE"});
+
+    /**
+     * creates a simple YesNoCheck Object
+     * @param input - the input provided by the user
+     */
     public YesNoCheck(String input) {
         this.input = input.toUpperCase();
     }

@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *  
  */
 package storesystem.api.deals;
 
@@ -11,8 +9,9 @@ import storesystem.api.*;
 /**
  * Represents a Receivable object in {@link Deal}
  * @author Nathan
+ * @param <T> the Receivable object for this Deal
  */
-public abstract class DealObject<T> implements Serializable, Cloneable{
+public abstract class DealObject<T> implements Serializable{
 
     
     /**

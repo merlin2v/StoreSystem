@@ -16,7 +16,14 @@ import storesystem.api.deals.PriceReductionOnMutiSameItemDeal;
  */
 public class Client {
 
+    /**
+     * the Store's Inventory object
+     */
     public static Inventory StoreInventory;
+
+    /**
+     * the store's Registry 
+     */
     public static ItemRegistry Registry;
     
     /** 

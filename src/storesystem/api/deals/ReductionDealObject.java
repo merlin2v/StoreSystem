@@ -23,6 +23,12 @@ public class ReductionDealObject extends DealObject<Double>{
      * the price reduction to apply
      */
     public double Reduction;
+
+    /**
+     * tests to see if this is a price reduction. 
+     * will return true.
+     * @return true if it is a reduction in price
+     */
     @Override
     public boolean isReduction() {
         return true;
@@ -37,6 +43,10 @@ public class ReductionDealObject extends DealObject<Double>{
         return this.Reduction;
     }
 
+    /**
+     * gets a short message representation of this deal
+     * @return a string object
+     */
     @Override
     public String getMessage() {
         return "-"+Reduction;

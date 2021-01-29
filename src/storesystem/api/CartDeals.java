@@ -62,11 +62,5 @@ public class CartDeals{
     public Collection<DealObject> getDealObjects() {
         return Collections.unmodifiableCollection(DealObjects);
     }
-
-    @Override
-    public Object clone() throws CloneNotSupportedException {
-        return super.clone(); 
-    }
-    
             
 }

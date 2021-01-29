@@ -14,7 +14,7 @@ import storesystem.api.*;
  * @author Nathan
  * @param <T> the type of Receivable
  */
-public class Deal<T extends DealObject > implements Serializable, Cloneable{
+public class Deal<T extends DealObject > implements Serializable{
     /** the check to see if the deal is valid and can be applied.
      * to use:  
      *  {@code Predicate<Item[]> predictate = (items, isPeek) -> {return items.length < 2;};}  
@@ -76,11 +76,6 @@ public class Deal<T extends DealObject > implements Serializable, Cloneable{
             //TimesApplied++; 
         }
         return ret;
-    }
-
-    @Override
-    public Object clone() throws CloneNotSupportedException {
-        return super.clone(); 
     }
 
     /**

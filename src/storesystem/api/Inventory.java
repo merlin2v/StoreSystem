@@ -26,6 +26,11 @@ public class Inventory implements Serializable{
     private TreeMap<Item, ItemOrder> inventory; 
     
     // CONSTRUCTORS //
+
+    /**
+     *
+     * @param reg
+     */
     
     public Inventory(ItemRegistry reg) {
         this.Registry = reg;
