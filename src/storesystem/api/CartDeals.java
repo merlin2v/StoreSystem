@@ -6,16 +6,14 @@ package storesystem.api;
 import java.util.*;
 import storesystem.api.deals.*;
 
- /**
-* this represents the acumulation of deals that will apply 
+/**
+* this represents the accumulation of deals that will apply 
 * @author Nathan
 */
 public class CartDeals{
     private Collection<DealObject> DealObjects = new ArrayList<>();
     private double totalReduction = 0;
     
-    
-
     /**
      * add a DealObject
      * @param o DealObject to add
@@ -62,5 +60,4 @@ public class CartDeals{
     public Collection<DealObject> getDealObjects() {
         return Collections.unmodifiableCollection(DealObjects);
     }
-            
 }
