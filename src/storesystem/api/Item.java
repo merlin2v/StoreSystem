@@ -3,13 +3,10 @@
  */
 package storesystem.api;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-/** here is item info that you need to know
- *
+/** 
+ * A basic Item that can be registered using an {@link ItemRegistry}
  * @author Dani
  */
 public class Item implements Serializable, Comparable<Item>{
@@ -17,61 +14,64 @@ public class Item implements Serializable, Comparable<Item>{
     String name;
     double price;
     
-    /*Integer HashCode = null;
-    
-    
-    private void writeObject(ObjectOutputStream oos) throws IOException{
-        if (HashCode==null) {
-            HashCode=super.hashCode();
-        }
-        oos.defaultWriteObject();
-    }
-    private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException{
-        ois.defaultReadObject();
-    }
-    
-    @Override      
-    public int hashCode () {
-        if (HashCode==null) {
-            return super.hashCode();
-        }
-        return HashCode;
-    }
-*/
     //constructors
-    public Item(String name, double price) {
+
+    Item(String name, double price) {
         this.name = name;
         this.price = price;
     }
     
-    public Item() {
+    Item() {
     	this.name = "";
     	this.price = 0.0;
     }
     
     //getters
+
+    /**
+     * get's the name of an item
+     * @return the name
+     */
     public String getName() {
     	return name;
     }
     
+    /**
+     * gets the price of an item
+     * @return the price
+     */
     public double getPrice() {
     	return price;
     }
     
     //setters
-    public void setName(String newName) {
+    void setName(String newName) {
     	this.name = newName;
     }
     
+    /**
+     * Sets the price of the object
+     * @param newPrice the new price
+     */
     public void setPrice(double newPrice) {
     	this.price = newPrice;
     }
 
+    /**
+     * compares items using their names
+     * @param o the item to compare to
+     * @return the compare int
+     */
     @Override
     public int compareTo(Item o) {
         return this.name.compareTo(o.name);
     }
 
+    /**
+     * Will find out if the object is equal in name
+     * @param obj the object to test
+     * @return if is equal
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Item) {
