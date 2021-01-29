@@ -79,5 +79,4 @@ public class Item implements Serializable, Comparable<Item>{
         }
         return name.equals(obj);
     }
-    
 }
