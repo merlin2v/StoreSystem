@@ -22,6 +22,7 @@ public class PriceReductionOnMutiSameItemDeal extends PriceReductionDeal{
      * This is the price to reduce per every {@link QuantityToRecieve}
      */
     public double ReducedPrice;    
+    private boolean hasRun;
     
     /**
      * Creates a Deal that can be applied to every {@code quantity} number of 
@@ -36,8 +37,10 @@ public class PriceReductionOnMutiSameItemDeal extends PriceReductionDeal{
         this.ReducedPrice = reducedPrice;
         this.Max=-1;
         this.Receivable = new ReductionDealObject(reducedPrice);
+        hasRun=false;//to prevent loops
         this.Test = (cart, isPeek) -> {
-            if (cart.hasItem(SearchItem)) {
+            
+            if (cart.hasItem(SearchItem)&&!this.hasRun) {
                 ItemOrder order = cart.getItemOrder(SearchItem);
                 if (this.QuantityToRecieve <= order.getQuantity()) {
                     //calculations are done here to increase efficiency unless peeked
@@ -46,6 +49,7 @@ public class PriceReductionOnMutiSameItemDeal extends PriceReductionDeal{
                         this.TimesApplied = order.getQuantity() / this.QuantityToRecieve;
                         if (this.Max!=-1 && this.TimesApplied > this.Max) this.TimesApplied = this.Max;
                         this.Receivable.Reduction = this.ReducedPrice * this.TimesApplied; 
+                        this.hasRun=true;
                     }
                     return true;
                 }else return false;
