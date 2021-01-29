@@ -9,9 +9,18 @@ package storesystem.api;
 import java.util.*;
 import java.util.ArrayList;
 
+/**
+ * The shopping cart object. Can only be used once after completion of the 
+ * transaction
+ * @author Tracy Pham 
+ */
 public class ShoppingCart { 
     // Creates an array list with ItemOrder as the data type
     // and order as the parameter
+
+    /**
+     * the {@link ArrayList} of {@link ItemOrder} objects
+     */
     public ArrayList<ItemOrder> shoppingcart = new ArrayList<ItemOrder>();
 
     /**
@@ -122,7 +131,7 @@ public class ShoppingCart {
         Item item = removeItemOrder.item;
         if(hasItem(item)){
             ItemOrder thisItemOrder = getItemOrder(item);
-            ItemOrder newValue = thisItemOrder.subtractFrom(removeItemOrder);
+            ItemOrder newValue = thisItemOrder.subtractBy(removeItemOrder);
             if(newValue.Quantity < 0 ) return false; // do nothing if the item subtraction is bigger than what the cart has
             if(newValue.Quantity == 0) 
                 shoppingcart.remove(thisItemOrder);
@@ -233,8 +242,11 @@ public class ShoppingCart {
         return completed;
     }
     
-    
-    // Searches for item in shopping cart
+    /**
+     * Searches for item in shopping cart
+     * @param searchOrder order to search for
+     * @return if the ItemOrder was found
+     */
     public boolean searchItem(ItemOrder searchOrder) {
             boolean found = false;
             for(int index = 0; index < shoppingcart.size(); index++) {
@@ -245,7 +257,10 @@ public class ShoppingCart {
     }
 
 
-    // Get total cost of shopping cart
+    /**
+     * Get total cost of shopping cart
+     * @return the sum of all the ItemOrder objects
+     */
     public double getTotalCost() {
             double totalCost = 0;
             for(int index = 0; index < shoppingcart.size(); index++ ) {
@@ -254,10 +269,6 @@ public class ShoppingCart {
                     }
             return totalCost;
             }
-
-    //System.out.println("Total amount of payment is $" + (int)totalCost);
-
-    
 
     /**
      * gets the ItemOrder object for the Item 
@@ -272,7 +283,14 @@ public class ShoppingCart {
         return null;
     }
 
-    
+    /**
+     * to string
+     */
+    @Override
+    public String toString() 
+    {
+    return "Items in cart: " + shoppingcart.toString() + " Total Cost: " + this.getTotalCost();
+    }
 
 }	
 	

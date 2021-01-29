@@ -140,7 +140,7 @@ public class Inventory implements Serializable{
             throw new ItemNotFoundException("Item in registry does not match");
         if(inventory.containsKey(order.getItem())){
             ItemOrder inv = inventory.get(order.item);
-            ItemOrder ninv = inv.subtractFrom(order);
+            ItemOrder ninv = inv.subtractBy(order);
             if (ninv.Quantity <= 0) {
                 inventory.remove(order.item);
             }else inventory.put(order.getItem(), ninv);

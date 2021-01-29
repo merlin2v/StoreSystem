@@ -18,18 +18,16 @@ import storesystem.api.deals.*;
  * @author Jenny
  */
 public class ItemRegistry implements Serializable{
-    @Serial
     
     //Private fields
     private TreeMap<String, Item> registeredItems; //TreeMap that holds registered items
     private Set<Deal> deals; //HashSet that holds deals
     private static String DEFAULT_REGISTRY_PATH = "data/registry.obj"; 
-    
-    public int value;
-    
 
-
- protected ItemRegistry() {
+    /**
+     * creates a new blank {@code ItemRegistry} object
+     */
+    protected ItemRegistry() {
 	 registeredItems = new TreeMap<>();
 	 deals = new HashSet<>();
  }

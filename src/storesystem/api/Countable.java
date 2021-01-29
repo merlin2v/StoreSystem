@@ -22,15 +22,15 @@ public interface Countable<T> {
      */
     public T addTo(Number add);
     /**
-     * add this to {@code T}
+     * subtract this by {@code T}
      * @param remove the value to remove from this
      * @return the difference of the two objects
      */
-    public T subtractFrom(T remove);
+    public T subtractBy(T remove);
     /**
-     * add this to {@code T}
+     * subtract this by {@code T}
      * @param remove the value to remove from this
      * @return the difference of the two objects
      */
-    public T subtractFrom(Number remove);
+    public T subtractBy(Number remove);
 }

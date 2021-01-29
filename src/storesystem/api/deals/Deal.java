@@ -79,6 +79,7 @@ public class Deal<T extends DealObject > implements Serializable{
     }
 
     /**
+     * Resets internal variables before calculating a deal
      * override this method to implement a reset mechanism 
      */
     public void reset() {

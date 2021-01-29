@@ -1,5 +1,9 @@
 package storesystem.api;
 
+/**
+ * An exception that lets the tester know that an item is already registered
+ * @author Jenny
+ */
 @SuppressWarnings("serial")
 public class ItemRegisteredException extends RuntimeException {
 	

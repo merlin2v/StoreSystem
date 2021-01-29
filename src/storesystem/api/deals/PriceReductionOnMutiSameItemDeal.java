@@ -96,11 +96,19 @@ public class PriceReductionOnMutiSameItemDeal extends PriceReductionDeal{
         };
     }
 
+    /**
+     * try to get the {@link Receivable} if evaluated. 
+     * @param cart The Items that are to be evaluated
+     * @return get the {@link Receivable} or null if false
+     */
     @Override
     public ReductionDealObject tryReceive(ShoppingCart cart) {
         return super.silentReceive(cart); 
     }
 
+    /**
+     * Resets internal variables before calculating a deal
+     */
     @Override
     public void reset() {
         super.reset(); 
