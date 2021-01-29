@@ -5,12 +5,6 @@ package storesystem.api;
 
 import java.io.*;
 import java.util.*;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import storesystem.api.deals.*;
 /**
  * Controls the valid {@link Item}s as well as creates and stores them.  
@@ -196,19 +190,20 @@ public class ItemRegistry implements Serializable{
 		 deals.remove(d);
 	 }
  }
- /**
-  * Runs through all of the deals and checks for valid deals
-  * @param cart  the cart object to check for deals
-  * @return the {@link CartDeals} object that contains the deals
-  * @see CartDeals
-  */
+ 
+    /**
+     * Runs through all of the deals and checks for valid deals
+     * @param cart  the cart object to check for deals
+     * @return the {@link CartDeals} object that contains the deals
+     * @see CartDeals
+     */
     public CartDeals runThroughDeals(ShoppingCart cart){
         CartDeals oDeal = new CartDeals();
         Iterator<Deal> iterator = deals.iterator();
         while (iterator.hasNext()) {
             Deal next;
-                next =  iterator.next();
-                next.reset();
+               next =  iterator.next();
+               next.reset();
             DealObject tryReceive;
             while((tryReceive = next.tryReceive(cart))!=null){
                 oDeal.add(tryReceive);
@@ -217,7 +212,7 @@ public class ItemRegistry implements Serializable{
         return oDeal;
     }
     /**
-     * Wrap Item in an extention object
+     * Wrap Item in an extension object
      * @param name creates the name for the object
      * @param item the template item to store extra variables in
      */
@@ -230,5 +225,4 @@ public class ItemRegistry implements Serializable{
         registeredItems.put(name, item);
         item.Registered = true;
     }
-   
 }
