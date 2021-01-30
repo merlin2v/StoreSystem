@@ -221,7 +221,6 @@ public class ItemRegistry implements Serializable{
             throw new ItemRegisteredException();
         }
         item.name = name;
-        item.price = 0.0;
         registeredItems.put(name, item);
         item.Registered = true;
     }
